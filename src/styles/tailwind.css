@@ -7,3 +7,9 @@
       @apply font-bold;
     }
   }
+  
+
+  * {
+    @apply font-sans;
+    /* @apply font-bold; */
+  }

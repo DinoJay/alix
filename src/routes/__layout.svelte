@@ -20,8 +20,8 @@
 	<div class="w-full block  {!open && 'hidden'} ">
 		<div class="text-sm ">
 			<a href="creations" class="block mt-4  text-teal-lighter mr-4"> Creations </a>
-			<a href="#responsive-header" class="block mt-4  text-teal-lighter mr-4"> Examples </a>
-			<a href="#responsive-header" class="block mt-4  text-teal-lighter "> Blog </a>
+			<a href="collab" class="block mt-4  text-teal-lighter mr-4"> Collab </a>
+			<a href="contact" class="block mt-4  text-teal-lighter "> Contact </a>
 		</div>
 	</div>
 </nav>

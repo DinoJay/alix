@@ -33,7 +33,7 @@
 	</a>
 </div>
 <div id="seventh" class="">
-	<a href="/meuble-entree">
+	<a href="/buffet">
 		<img class="md:max-w-prose" src="buffet.png" />
 	</a>
 </div>

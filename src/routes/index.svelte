@@ -6,7 +6,7 @@
 	<a class="creationsk" href="/creations">
 		<div class="flex items-center justify-center">
 			<div class="creations-text absolute m-auto  text-white font-sans uppercase">Creation</div>
-			<img style="max-height: 600px" src="creations.png" />
+			<img style="" src="creations.png" />
 		</div>
 	</a>
 	<a class="collab" href="/collaborations">
