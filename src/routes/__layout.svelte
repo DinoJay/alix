@@ -1,30 +1,121 @@
-<script>
-	import '../styles/tailwind.css';
-	import MenuIcon from 'svelte-remixicon/lib/icons/MenuLine.svelte';
-	let open = false;
-	const paths = ['popibleu.png', 'popijaune.png', 'popivert.png', 'popirouge.png'];
-	$: i = new Date().getMilliseconds() % paths.length;
+<!-- 1. Assign current route's path to `key` prop -->
+<script context="module">
+	export const load = async ({ page }) => ({
+		props: {
+			key: page.path,
+			page: page
+		}
+	});
 </script>
 
-<nav class="flex items-center justify-between flex-wrap p-6">
-	<div class="flex items-center flex-no-shrink  mr-6">
-		<a href="/">
-			<img style="height: 50px" src={paths[i]} height="20" />
-		</a>
+<script>
+	import { fade, fly, slide } from 'svelte/transition';
+
+	import { onMount } from 'svelte';
+	import '../styles/tailwind.css';
+	import MenuIcon from 'svelte-remixicon/lib/icons/MenuLine.svelte';
+	import PageTransition from '$lib/pageTrans.svelte';
+
+	export let key;
+	export let page;
+
+	let open = false;
+	const routePaths = {
+		'/banc': 0,
+		'/buffet': 1,
+		'/collab': 2,
+		'/commode': 3,
+		'/contact': 0,
+		'/creations': 1,
+		'/meuble-entree': 2,
+		'/': 3,
+		'/table-1': 0,
+		'/table-2': 1,
+		'/table-bleu': 2
+	};
+	$: cleanedPath = key.substring(0);
+	console.log('cleanedPath', key, cleanedPath);
+
+	const imgPaths = ['popibleu.png', 'popijaune.png', 'popivert.png', 'popirouge.png'];
+
+	$: i = routePaths[key];
+	const autoclose = () => (open = false);
+	let menuFixed = false;
+	onMount(() => {
+		window.onscroll = function () {
+			if (document.body.scrollTop > 103 || document.documentElement.scrollTop > 103) {
+				menuFixed = true;
+				// document.getElementById('myP').className = 'test';
+			} else {
+				menuFixed = false;
+				// document.getElementById('myP').className = '';
+			}
+		};
+	});
+</script>
+
+<div class="max-w-screen-xl m-auto relative">
+	<div class="flex  fixed w">
+		<nav class="w bg-white  p-6 relative">
+			<button on:click={() => (open = !open)} class="flex items-center px-3 py-2 absolute right-0">
+				<MenuIcon
+					class="transition-all"
+					style="transform: rotate({open ? '90' : 0}deg)"
+					size="40px"
+				/>
+			</button>
+			<div class="flex items-center  mr-6 ">
+				<a href="/">
+					<img style="height: 50px" src={imgPaths[i]} height="20" />
+				</a>
+			</div>
+			{#if open}
+				<div transition:slide={{ duration: 500 }} class="">
+					<div class="text-lg">
+						<a
+							on:click={autoclose}
+							href="/"
+							class="block mt-4  text-teal-lighter {key === '/' && 'underline'}"
+						>
+							Accueil
+						</a>
+						<a
+							on:click={autoclose}
+							href="creations"
+							class="block mt-4  text-teal-lighter {key === '/creations' && 'underline'}"
+						>
+							Creations
+						</a>
+						<a
+							on:click={autoclose}
+							href="collab"
+							class="block mt-4  text-teal-lighter {key === '/collab' && 'underline'}"
+						>
+							Collab
+						</a>
+						<a
+							on:click={autoclose}
+							href="contact"
+							class="block mt-4  text-teal-lighter {key === '/contact' && 'underline'} "
+						>
+							Contact
+						</a>
+					</div>
+				</div>
+			{/if}
+		</nav>
 	</div>
-	<div class="block ">
-		<button on:click={() => (open = !open)} class="flex items-center px-3 py-2 text-teal-lighter ">
-			<MenuIcon size="40px" />
-		</button>
-	</div>
-	<div class="w-full block  {!open && 'hidden'} ">
-		<div class="text-sm ">
-			<a href="creations" class="block mt-4  text-teal-lighter mr-4"> Creations </a>
-			<a href="collab" class="block mt-4  text-teal-lighter mr-4"> Collab </a>
-			<a href="contact" class="block mt-4  text-teal-lighter "> Contact </a>
-		</div>
-	</div>
-</nav>
-<main>
-	<slot />
-</main>
+	<main class="sm:px-3 " style="padding-top:104px">
+		<PageTransition refresh={key}>
+			<slot />
+		</PageTransition>
+	</main>
+</div>
+
+<style>
+	.w {
+		width: 100%;
+		min-width: inherit;
+		max-width: inherit;
+	}
+</style>

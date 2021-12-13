@@ -13,3 +13,12 @@
     @apply font-sans;
     /* @apply font-bold; */
   }
+
+  @layer utilities {
+    @variants responsive {
+      .min-w-prose {
+        min-width: 65ch;
+      }
+      
+    }
+  }

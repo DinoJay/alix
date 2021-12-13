@@ -1,40 +1,47 @@
 <script>
 	// import '../styles/tailwind.css';
+
+	import { seo } from '$lib/store.js';
+
+	$seo = {
+		title: 'Creations',
+		description: 'Popi Creations Meuble unique Design Furniture'
+	};
 </script>
 
 <div id="first" class="">
 	<a href="/table-2">
-		<img class="md:max-w-prose" src="table-2.png" />
+		<img class="md:max-w-prose" src="table-2.webp" />
 	</a>
 </div>
 <div id="sec" class="">
 	<a href="/table-1">
-		<img class="md:max-w-prose" src="table-1.png" />
+		<img class="md:max-w-prose" src="table-1.webp" />
 	</a>
 </div>
 <div id="fourth" class="">
 	<a href="/commode">
-		<img class="md:max-w-prose" src="commode.png" />
+		<img class="md:max-w-prose" src="commode.webp" />
 	</a>
 </div>
 <div id="third" class="">
 	<a href="/table-bleu">
-		<img class="md:max-w-prose" src="table-bleu.png" />
+		<img class="md:max-w-prose" src="table-bleu.webp" />
 	</a>
 </div>
 <div id="fifth" class="">
 	<a href="/banc">
-		<img class="md:max-w-prose" src="banc.png" />
+		<img class="md:max-w-prose" src="banc.webp" />
 	</a>
 </div>
 <div id="sixth" class="">
 	<a href="/meuble-entree">
-		<img class="md:max-w-prose" src="meuble entree.png" />
+		<img class="md:max-w-prose" src="meuble entree.webp" />
 	</a>
 </div>
 <div id="seventh" class="">
 	<a href="/buffet">
-		<img class="md:max-w-prose" src="buffet.png" />
+		<img class="md:max-w-prose" src="buffet.webp" />
 	</a>
 </div>
 
@@ -92,6 +99,6 @@
 		@apply justify-center;
 		/* background-size: 100% auto; */
 		background-repeat: no-repeat;
-		background-color: #ed69a3;
+		background-color: #f82f4e;
 	}
 </style>

@@ -3326,10 +3326,10 @@ var init_install_fetch = __esm({
           const readable = pair === null || pair === void 0 ? void 0 : pair.readable;
           assertRequiredField(readable, "readable", "ReadableWritablePair");
           assertReadableStream(readable, `${context} has member 'readable' that`);
-          const writable2 = pair === null || pair === void 0 ? void 0 : pair.writable;
-          assertRequiredField(writable2, "writable", "ReadableWritablePair");
-          assertWritableStream(writable2, `${context} has member 'writable' that`);
-          return { readable, writable: writable2 };
+          const writable3 = pair === null || pair === void 0 ? void 0 : pair.writable;
+          assertRequiredField(writable3, "writable", "ReadableWritablePair");
+          assertWritableStream(writable3, `${context} has member 'writable' that`);
+          return { readable, writable: writable3 };
         }
         class ReadableStream2 {
           constructor(rawUnderlyingSource = {}, rawStrategy = {}) {
@@ -3907,10 +3907,10 @@ var init_install_fetch = __esm({
           if (stream._backpressure) {
             const backpressureChangePromise = stream._backpressureChangePromise;
             return transformPromiseWith(backpressureChangePromise, () => {
-              const writable2 = stream._writable;
-              const state = writable2._state;
+              const writable3 = stream._writable;
+              const state = writable3._state;
               if (state === "erroring") {
-                throw writable2._storedError;
+                throw writable3._storedError;
               }
               return TransformStreamDefaultControllerPerformTransform(controller, chunk);
             });
@@ -4696,16 +4696,17 @@ var init_shims = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/__layout-2a9c4b7d.js
-var layout_2a9c4b7d_exports = {};
-__export(layout_2a9c4b7d_exports, {
-  default: () => _layout
+// .svelte-kit/output/server/chunks/__layout-880012f0.js
+var layout_880012f0_exports = {};
+__export(layout_880012f0_exports, {
+  default: () => _layout,
+  load: () => load
 });
-var MenuLine, _layout;
-var init_layout_2a9c4b7d = __esm({
-  ".svelte-kit/output/server/chunks/__layout-2a9c4b7d.js"() {
+var MenuLine, PageTrans, css, load, _layout;
+var init_layout_880012f0 = __esm({
+  ".svelte-kit/output/server/chunks/__layout-880012f0.js"() {
     init_shims();
-    init_app_c9ce01b5();
+    init_app_2464a088();
     MenuLine = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let $$restProps = compute_rest_props($$props, ["size", "color", "class"]);
       let { size = "1em" } = $$props;
@@ -4729,34 +4730,81 @@ var init_layout_2a9c4b7d = __esm({
         escape_object($$restProps)
       ])}><path fill="${"none"}" d="${"M0 0h24v24H0z"}"></path><path d="${"M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"}"></path></svg>`;
     });
+    PageTrans = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let { refresh = "" } = $$props;
+      let { style } = $$props;
+      if ($$props.refresh === void 0 && $$bindings.refresh && refresh !== void 0)
+        $$bindings.refresh(refresh);
+      if ($$props.style === void 0 && $$bindings.style && style !== void 0)
+        $$bindings.style(style);
+      return `<div${add_attribute("style", style, 0)}>${slots.default ? slots.default({}) : ``}</div>`;
+    });
+    css = {
+      code: ".w.svelte-7oco8v{width:100%;min-width:inherit;max-width:inherit}",
+      map: null
+    };
+    load = async ({ page }) => ({ props: { key: page.path, page } });
     _layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let cleanedPath;
       let i;
-      const paths = ["popibleu.png", "popijaune.png", "popivert.png", "popirouge.png"];
-      i = new Date().getMilliseconds() % paths.length;
-      return `<nav class="${"flex items-center justify-between flex-wrap p-6"}"><div class="${"flex items-center flex-no-shrink mr-6"}"><a href="${"/"}"><img style="${"height: 50px"}"${add_attribute("src", paths[i], 0)} height="${"20"}"></a></div>
-	<div class="${"block "}"><button class="${"flex items-center px-3 py-2 text-teal-lighter "}">${validate_component(MenuLine, "MenuIcon").$$render($$result, { size: "40px" }, {}, {})}</button></div>
-	<div class="${"w-full block " + escape("hidden") + ""}"><div class="${"text-sm "}"><a href="${"creations"}" class="${"block mt-4 text-teal-lighter mr-4"}">Creations </a>
-			<a href="${"collab"}" class="${"block mt-4 text-teal-lighter mr-4"}">Collab </a>
-			<a href="${"contact"}" class="${"block mt-4 text-teal-lighter "}">Contact </a></div></div></nav>
-<main>${slots.default ? slots.default({}) : ``}</main>`;
+      let { key } = $$props;
+      let { page } = $$props;
+      const routePaths = {
+        "/banc": 0,
+        "/buffet": 1,
+        "/collab": 2,
+        "/commode": 3,
+        "/contact": 0,
+        "/creations": 1,
+        "/meuble-entree": 2,
+        "/": 3,
+        "/table-1": 0,
+        "/table-2": 1,
+        "/table-bleu": 2
+      };
+      console.log("cleanedPath", key, cleanedPath);
+      const imgPaths = ["popibleu.png", "popijaune.png", "popivert.png", "popirouge.png"];
+      if ($$props.key === void 0 && $$bindings.key && key !== void 0)
+        $$bindings.key(key);
+      if ($$props.page === void 0 && $$bindings.page && page !== void 0)
+        $$bindings.page(page);
+      $$result.css.add(css);
+      cleanedPath = key.substring(0);
+      i = routePaths[key];
+      return `
+
+
+
+
+<div class="${"max-w-screen-xl m-auto relative"}"><div class="${"flex fixed w svelte-7oco8v"}"><nav class="${"w bg-white p-6 relative svelte-7oco8v"}"><button class="${"flex items-center px-3 py-2 absolute right-0"}">${validate_component(MenuLine, "MenuIcon").$$render($$result, {
+        class: "transition-all",
+        style: "transform: rotate(" + 0 + "deg)",
+        size: "40px"
+      }, {}, {})}</button>
+			<div class="${"flex items-center mr-6 "}"><a href="${"/"}"><img style="${"height: 50px"}"${add_attribute("src", imgPaths[i], 0)} height="${"20"}"></a></div>
+			${``}</nav></div>
+	<main class="${"sm:px-3 "}" style="${"padding-top:104px"}">${validate_component(PageTrans, "PageTransition").$$render($$result, { refresh: key }, {}, {
+        default: () => `${slots.default ? slots.default({}) : ``}`
+      })}</main>
+</div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/error-12e143ca.js
-var error_12e143ca_exports = {};
-__export(error_12e143ca_exports, {
+// .svelte-kit/output/server/chunks/error-4f36b05e.js
+var error_4f36b05e_exports = {};
+__export(error_4f36b05e_exports, {
   default: () => Error2,
-  load: () => load
+  load: () => load2
 });
-function load({ error: error2, status }) {
+function load2({ error: error2, status }) {
   return { props: { error: error2, status } };
 }
 var Error2;
-var init_error_12e143ca = __esm({
-  ".svelte-kit/output/server/chunks/error-12e143ca.js"() {
+var init_error_4f36b05e = __esm({
+  ".svelte-kit/output/server/chunks/error-4f36b05e.js"() {
     init_shims();
-    init_app_c9ce01b5();
+    init_app_2464a088();
     Error2 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let { status } = $$props;
       let { error: error2 } = $$props;
@@ -4776,157 +4824,328 @@ ${error2.stack ? `<pre>${escape(error2.stack)}</pre>` : ``}`;
   }
 });
 
-// .svelte-kit/output/server/chunks/index-03538ebc.js
-var index_03538ebc_exports = {};
-__export(index_03538ebc_exports, {
+// .svelte-kit/output/server/chunks/store-7a94b2c7.js
+function writable(value, start = noop) {
+  let stop;
+  const subscribers = new Set();
+  function set(new_value) {
+    if (safe_not_equal(value, new_value)) {
+      value = new_value;
+      if (stop) {
+        const run_queue = !subscriber_queue.length;
+        for (const subscriber of subscribers) {
+          subscriber[1]();
+          subscriber_queue.push(subscriber, value);
+        }
+        if (run_queue) {
+          for (let i = 0; i < subscriber_queue.length; i += 2) {
+            subscriber_queue[i][0](subscriber_queue[i + 1]);
+          }
+          subscriber_queue.length = 0;
+        }
+      }
+    }
+  }
+  function update(fn) {
+    set(fn(value));
+  }
+  function subscribe2(run2, invalidate = noop) {
+    const subscriber = [run2, invalidate];
+    subscribers.add(subscriber);
+    if (subscribers.size === 1) {
+      stop = start(set) || noop;
+    }
+    run2(value);
+    return () => {
+      subscribers.delete(subscriber);
+      if (subscribers.size === 0) {
+        stop();
+        stop = null;
+      }
+    };
+  }
+  return { set, update, subscribe: subscribe2 };
+}
+var subscriber_queue, seo;
+var init_store_7a94b2c7 = __esm({
+  ".svelte-kit/output/server/chunks/store-7a94b2c7.js"() {
+    init_shims();
+    init_app_2464a088();
+    subscriber_queue = [];
+    seo = writable({
+      title: "Atelier Popi",
+      description: "This is a description of my website"
+    });
+  }
+});
+
+// .svelte-kit/output/server/chunks/index-0bdb8e2b.js
+var index_0bdb8e2b_exports = {};
+__export(index_0bdb8e2b_exports, {
   default: () => Routes
 });
-var css, Routes;
-var init_index_03538ebc = __esm({
-  ".svelte-kit/output/server/chunks/index-03538ebc.js"() {
+var css2, Routes;
+var init_index_0bdb8e2b = __esm({
+  ".svelte-kit/output/server/chunks/index-0bdb8e2b.js"() {
     init_shims();
-    init_app_c9ce01b5();
-    css = {
+    init_app_2464a088();
+    init_store_7a94b2c7();
+    css2 = {
       code: ".creationsk.svelte-1wbei18{min-width:50%}.collab.svelte-1wbei18{min-width:50%}.collab-text.svelte-1wbei18{font-size:4rem}.creations-text.svelte-1wbei18{font-size:4rem}",
       map: null
     };
     Routes = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      $$result.css.add(css);
-      return `<div class="${"md:flex"}"><a class="${"creationsk svelte-1wbei18"}" href="${"/creations"}"><div class="${"flex items-center justify-center"}"><div class="${"creations-text absolute m-auto text-white font-sans uppercase svelte-1wbei18"}">Creation</div>
+      let $seo, $$unsubscribe_seo;
+      $$unsubscribe_seo = subscribe(seo, (value) => $seo = value);
+      set_store_value(seo, $seo = {
+        title: "Accueil",
+        description: "Popi Creations Meuble unique Design Furniture Atelier"
+      }, $seo);
+      $$result.css.add(css2);
+      $$unsubscribe_seo();
+      return `<div class="${"md:flex"}"><a class="${"creationsk svelte-1wbei18"}" href="${"/creations"}"><div class="${"flex items-center justify-center"}"><div class="${"creations-text absolute m-auto text-white font-sans uppercase svelte-1wbei18"}">cr\xE9ation</div>
 			<img style="${""}" src="${"creations.png"}"></div></a>
-	<a class="${"collab svelte-1wbei18"}" href="${"/collaborations"}"><div class="${"flex items-center justify-center h-full"}"><div class="${"collab-text absolute m-auto font-sans uppercase svelte-1wbei18"}">Collab</div>
+	<a class="${"collab svelte-1wbei18"}" href="${"/collab"}"><div class="${"flex items-center justify-center h-full"}"><div class="${"collab-text absolute m-auto font-sans uppercase svelte-1wbei18"}">Collab</div>
 			<img style="${"max-height:300px"}" src="${"slash.png"}"></div></a>
 </div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/collaborations-d1076c44.js
-var collaborations_d1076c44_exports = {};
-__export(collaborations_d1076c44_exports, {
-  default: () => Collaborations
-});
-var Collaborations;
-var init_collaborations_d1076c44 = __esm({
-  ".svelte-kit/output/server/chunks/collaborations-d1076c44.js"() {
+// .svelte-kit/output/server/chunks/ArrowRightFill-51054c0c.js
+var ArrowRightFill;
+var init_ArrowRightFill_51054c0c = __esm({
+  ".svelte-kit/output/server/chunks/ArrowRightFill-51054c0c.js"() {
     init_shims();
-    init_app_c9ce01b5();
-    Collaborations = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      return ``;
+    init_app_2464a088();
+    ArrowRightFill = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let $$restProps = compute_rest_props($$props, ["size", "color", "class"]);
+      let { size = "1em" } = $$props;
+      let { color = "currentColor" } = $$props;
+      let { class: customClass = "" } = $$props;
+      if ($$props.size === void 0 && $$bindings.size && size !== void 0)
+        $$bindings.size(size);
+      if ($$props.color === void 0 && $$bindings.color && color !== void 0)
+        $$bindings.color(color);
+      if ($$props.class === void 0 && $$bindings.class && customClass !== void 0)
+        $$bindings.class(customClass);
+      return `<svg${spread([
+        { xmlns: "http://www.w3.org/2000/svg" },
+        { viewBox: "0 0 24 24" },
+        { width: escape_attribute_value(size) },
+        { height: escape_attribute_value(size) },
+        { fill: escape_attribute_value(color) },
+        {
+          class: "remixicon " + escape(customClass)
+        },
+        escape_object($$restProps)
+      ])}><path fill="${"none"}" d="${"M0 0h24v24H0z"}"></path><path d="${"M12 13H4v-2h8V4l8 8-8 8z"}"></path></svg>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/meuble-entree-8cba097e.js
-var meuble_entree_8cba097e_exports = {};
-__export(meuble_entree_8cba097e_exports, {
+// .svelte-kit/output/server/chunks/ArrowLeftFill-f7063ddf.js
+var ArrowLeftFill;
+var init_ArrowLeftFill_f7063ddf = __esm({
+  ".svelte-kit/output/server/chunks/ArrowLeftFill-f7063ddf.js"() {
+    init_shims();
+    init_app_2464a088();
+    ArrowLeftFill = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let $$restProps = compute_rest_props($$props, ["size", "color", "class"]);
+      let { size = "1em" } = $$props;
+      let { color = "currentColor" } = $$props;
+      let { class: customClass = "" } = $$props;
+      if ($$props.size === void 0 && $$bindings.size && size !== void 0)
+        $$bindings.size(size);
+      if ($$props.color === void 0 && $$bindings.color && color !== void 0)
+        $$bindings.color(color);
+      if ($$props.class === void 0 && $$bindings.class && customClass !== void 0)
+        $$bindings.class(customClass);
+      return `<svg${spread([
+        { xmlns: "http://www.w3.org/2000/svg" },
+        { viewBox: "0 0 24 24" },
+        { width: escape_attribute_value(size) },
+        { height: escape_attribute_value(size) },
+        { fill: escape_attribute_value(color) },
+        {
+          class: "remixicon " + escape(customClass)
+        },
+        escape_object($$restProps)
+      ])}><path fill="${"none"}" d="${"M0 0h24v24H0z"}"></path><path d="${"M12 13v7l-8-8 8-8v7h8v2z"}"></path></svg>`;
+    });
+  }
+});
+
+// .svelte-kit/output/server/chunks/meuble-entree-76302166.js
+var meuble_entree_76302166_exports = {};
+__export(meuble_entree_76302166_exports, {
   default: () => Meuble_entree
 });
-var Meuble_entree;
-var init_meuble_entree_8cba097e = __esm({
-  ".svelte-kit/output/server/chunks/meuble-entree-8cba097e.js"() {
+var css3, Meuble_entree;
+var init_meuble_entree_76302166 = __esm({
+  ".svelte-kit/output/server/chunks/meuble-entree-76302166.js"() {
     init_shims();
-    init_app_c9ce01b5();
+    init_app_2464a088();
+    init_ArrowRightFill_51054c0c();
+    init_ArrowLeftFill_f7063ddf();
+    init_store_7a94b2c7();
+    css3 = {
+      code: "h1.svelte-4kbf2d{color:#f9b256}",
+      map: null
+    };
     Meuble_entree = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      return `<div class="${"flex flex-col "}"><div class="${"m-auto max-w-prose flex flex-col items-center"}"><h1 class="${"text-3xl uppercase mb-3"}">Console ENTREE</h1>
-		<div>Sapin - Peuplier 86 x 86 x 12 ( vendu )</div>
-		<img class="${"mb-80"}" src="${"entree-face.png"}">
-		<img src="${"entree-haut.png"}">
-		<img class="${"mb-80 mt-48"}" style="${""}" src="${"entree-cote.png"}">
-		<img class="${"mb-80"}" src="${"entree-diag.png"}"></div></div>`;
+      let $seo, $$unsubscribe_seo;
+      $$unsubscribe_seo = subscribe(seo, (value) => $seo = value);
+      set_store_value(seo, $seo = {
+        title: "Meuble Entree",
+        description: "Popi Creations Meuble unique Design Furniture Bleu Sapin Console"
+      }, $seo);
+      $$result.css.add(css3);
+      $$unsubscribe_seo();
+      return `<div class="${"flex flex-col "}"><div class="${"m-auto max-w-prose flex flex-col items-center p-3"}"><h1 class="${"text-3xl uppercase text-center mb-3 svelte-4kbf2d"}">Console entr\xE9e</h1>
+		<div>Sapin - Peuplier 86 x 86 x 12</div>
+		<p class="${"text-gray-500"}">vendu</p>
+		<img class="${""}" src="${"entree-face.webp"}">
+		<img src="${"entree-haut.webp"}">
+		<img class="${"mt-16"}" style="${""}" src="${"entree-cote.webp"}">
+		<img class="${"mt-16 mb-6"}" src="${"entree-diag.webp"}">
+		<div class="${"flex w-full justify-center items-center "}"><a class="${"/table-2"}" href="${"/banc"}">${validate_component(ArrowLeftFill, "ArrowLeftIcon").$$render($$result, { size: "30" }, {}, {})}</a>
+			<a class="${"ml-auto"}" href="${"/buffet"}">${validate_component(ArrowRightFill, "ArrowRightIcon").$$render($$result, { size: "30" }, {}, {})}</a></div></div>
+</div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/table-bleu-b733ea5a.js
-var table_bleu_b733ea5a_exports = {};
-__export(table_bleu_b733ea5a_exports, {
+// .svelte-kit/output/server/chunks/table-bleu-24ccb36a.js
+var table_bleu_24ccb36a_exports = {};
+__export(table_bleu_24ccb36a_exports, {
   default: () => Table_bleu
 });
-var Table_bleu;
-var init_table_bleu_b733ea5a = __esm({
-  ".svelte-kit/output/server/chunks/table-bleu-b733ea5a.js"() {
+var css4, Table_bleu;
+var init_table_bleu_24ccb36a = __esm({
+  ".svelte-kit/output/server/chunks/table-bleu-24ccb36a.js"() {
     init_shims();
-    init_app_c9ce01b5();
+    init_app_2464a088();
+    init_ArrowRightFill_51054c0c();
+    init_ArrowLeftFill_f7063ddf();
+    init_store_7a94b2c7();
+    css4 = {
+      code: "h1.svelte-1jv3vde{color:gold}",
+      map: null
+    };
     Table_bleu = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      return `<div class="${"flex flex-col "}"><div class="${"m-auto max-w-prose flex flex-col items-center"}"><h1 class="${"text-3xl uppercase mb-3"}">Table bleu</h1>
+      let $seo, $$unsubscribe_seo;
+      $$unsubscribe_seo = subscribe(seo, (value) => $seo = value);
+      set_store_value(seo, $seo = {
+        title: "Table Bleu",
+        description: "Popi Creations Meuble unique Design Furniture Table Moderne Hetre Plexi Couleur Bleu Salon"
+      }, $seo);
+      $$result.css.add(css4);
+      $$unsubscribe_seo();
+      return `<div class="${"flex flex-col "}"><div class="${"m-auto max-w-prose flex flex-col items-center p-3"}"><h1 class="${"text-3xl uppercase text-center  svelte-1jv3vde"}">Table Bleu</h1>
 		<div>H\xEAtre - Multiplex - Alupanel - Verre arm\xE9</div>
-		<div>40 x 100 x 35,5 ( vendu )</div>
-		<img class="${""}" style="${""}" src="${"tableuface.png"}">
-		<img class="${"mb-40"}" src="${"tableu.png"}">
-		<img class="${""}" src="${"table-bleu-angle.png"}"></div></div>`;
+		<div>40 x 100 x 35,5</div>
+		<p class="${"text-gray-500"}">vendu</p>
+		<img class="${"mt-32 mb-28"}" style="${""}" src="${"tableuface.png"}">
+		<img class="${"mb-12"}" src="${"tableu.png"}">
+		<img class="${""}" src="${"table-bleu-angle.png"}">
+		<div class="${"flex w-full justify-center items-center"}"><a class="${"/table-2"}" href="${"/commode"}">${validate_component(ArrowLeftFill, "ArrowLeftIcon").$$render($$result, { size: "30" }, {}, {})}</a>
+			<a class="${"ml-auto"}" href="${"/banc"}">${validate_component(ArrowRightFill, "ArrowRightIcon").$$render($$result, { size: "30" }, {}, {})}</a></div></div>
+</div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/creations-03243cd7.js
-var creations_03243cd7_exports = {};
-__export(creations_03243cd7_exports, {
+// .svelte-kit/output/server/chunks/creations-8380ee4c.js
+var creations_8380ee4c_exports = {};
+__export(creations_8380ee4c_exports, {
   default: () => Creations
 });
-var css2, Creations;
-var init_creations_03243cd7 = __esm({
-  ".svelte-kit/output/server/chunks/creations-03243cd7.js"() {
+var css5, Creations;
+var init_creations_8380ee4c = __esm({
+  ".svelte-kit/output/server/chunks/creations-8380ee4c.js"() {
     init_shims();
-    init_app_c9ce01b5();
-    css2 = {
-      code: "#first.svelte-sizu4i{@apply flex;;@apply justify-center;;background-color:dodgerblue}#sec.svelte-sizu4i{@apply bg-center;;@apply flex;;@apply justify-center;;background-repeat:no-repeat;background-color:tomato}#third.svelte-sizu4i{@apply bg-center;;@apply flex;;@apply justify-center;;background-repeat:no-repeat;background-color:yellow}#fourth.svelte-sizu4i{@apply bg-center;;@apply flex;;@apply justify-center;;background-size:100% auto;background-repeat:no-repeat;background-color:lightskyblue}#fifth.svelte-sizu4i{@apply bg-center;;@apply flex;;@apply justify-center;;background-repeat:no-repeat;background-color:#5cac92}#sixth.svelte-sizu4i{@apply bg-center;;@apply flex;;@apply justify-center;;background-repeat:no-repeat;background-color:#f9b256}#seventh.svelte-sizu4i{@apply bg-center;;@apply flex;;@apply justify-center;;background-repeat:no-repeat;background-color:#ed69a3}",
+    init_app_2464a088();
+    init_store_7a94b2c7();
+    css5 = {
+      code: "#first.svelte-g1o3p5{@apply flex;;@apply justify-center;;background-color:dodgerblue}#sec.svelte-g1o3p5{@apply bg-center;;@apply flex;;@apply justify-center;;background-repeat:no-repeat;background-color:tomato}#third.svelte-g1o3p5{@apply bg-center;;@apply flex;;@apply justify-center;;background-repeat:no-repeat;background-color:yellow}#fourth.svelte-g1o3p5{@apply bg-center;;@apply flex;;@apply justify-center;;background-size:100% auto;background-repeat:no-repeat;background-color:lightskyblue}#fifth.svelte-g1o3p5{@apply bg-center;;@apply flex;;@apply justify-center;;background-repeat:no-repeat;background-color:#5cac92}#sixth.svelte-g1o3p5{@apply bg-center;;@apply flex;;@apply justify-center;;background-repeat:no-repeat;background-color:#f9b256}#seventh.svelte-g1o3p5{@apply bg-center;;@apply flex;;@apply justify-center;;background-repeat:no-repeat;background-color:#f82f4e}",
       map: null
     };
     Creations = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      $$result.css.add(css2);
-      return `<div id="${"first"}" class="${" svelte-sizu4i"}"><a href="${"/table-2"}"><img class="${"md:max-w-prose"}" src="${"table-2.png"}"></a></div>
-<div id="${"sec"}" class="${" svelte-sizu4i"}"><a href="${"/table-1"}"><img class="${"md:max-w-prose"}" src="${"table-1.png"}"></a></div>
-<div id="${"fourth"}" class="${" svelte-sizu4i"}"><a href="${"/commode"}"><img class="${"md:max-w-prose"}" src="${"commode.png"}"></a></div>
-<div id="${"third"}" class="${" svelte-sizu4i"}"><a href="${"/table-bleu"}"><img class="${"md:max-w-prose"}" src="${"table-bleu.png"}"></a></div>
-<div id="${"fifth"}" class="${" svelte-sizu4i"}"><a href="${"/banc"}"><img class="${"md:max-w-prose"}" src="${"banc.png"}"></a></div>
-<div id="${"sixth"}" class="${" svelte-sizu4i"}"><a href="${"/meuble-entree"}"><img class="${"md:max-w-prose"}" src="${"meuble entree.png"}"></a></div>
-<div id="${"seventh"}" class="${" svelte-sizu4i"}"><a href="${"/buffet"}"><img class="${"md:max-w-prose"}" src="${"buffet.png"}"></a>
+      let $seo, $$unsubscribe_seo;
+      $$unsubscribe_seo = subscribe(seo, (value) => $seo = value);
+      set_store_value(seo, $seo = {
+        title: "Creations",
+        description: "Popi Creations Meuble unique Design Furniture"
+      }, $seo);
+      $$result.css.add(css5);
+      $$unsubscribe_seo();
+      return `<div id="${"first"}" class="${" svelte-g1o3p5"}"><a href="${"/table-2"}"><img class="${"md:max-w-prose"}" src="${"table-2.webp"}"></a></div>
+<div id="${"sec"}" class="${" svelte-g1o3p5"}"><a href="${"/table-1"}"><img class="${"md:max-w-prose"}" src="${"table-1.webp"}"></a></div>
+<div id="${"fourth"}" class="${" svelte-g1o3p5"}"><a href="${"/commode"}"><img class="${"md:max-w-prose"}" src="${"commode.webp"}"></a></div>
+<div id="${"third"}" class="${" svelte-g1o3p5"}"><a href="${"/table-bleu"}"><img class="${"md:max-w-prose"}" src="${"table-bleu.webp"}"></a></div>
+<div id="${"fifth"}" class="${" svelte-g1o3p5"}"><a href="${"/banc"}"><img class="${"md:max-w-prose"}" src="${"banc.webp"}"></a></div>
+<div id="${"sixth"}" class="${" svelte-g1o3p5"}"><a href="${"/meuble-entree"}"><img class="${"md:max-w-prose"}" src="${"meuble entree.webp"}"></a></div>
+<div id="${"seventh"}" class="${" svelte-g1o3p5"}"><a href="${"/buffet"}"><img class="${"md:max-w-prose"}" src="${"buffet.webp"}"></a>
 </div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/commode-6c2e855c.js
-var commode_6c2e855c_exports = {};
-__export(commode_6c2e855c_exports, {
+// .svelte-kit/output/server/chunks/commode-961c843c.js
+var commode_961c843c_exports = {};
+__export(commode_961c843c_exports, {
   default: () => Commode
 });
-var css3, Commode;
-var init_commode_6c2e855c = __esm({
-  ".svelte-kit/output/server/chunks/commode-6c2e855c.js"() {
+var css6, Commode;
+var init_commode_961c843c = __esm({
+  ".svelte-kit/output/server/chunks/commode-961c843c.js"() {
     init_shims();
-    init_app_c9ce01b5();
-    css3 = {
-      code: "img.svelte-19zznr7{@apply px-1;}",
+    init_app_2464a088();
+    init_ArrowRightFill_51054c0c();
+    init_ArrowLeftFill_f7063ddf();
+    init_store_7a94b2c7();
+    css6 = {
+      code: "h1.svelte-1w8o3tf{color:lightskyblue}img.svelte-1w8o3tf{@apply px-1;}",
       map: null
     };
     Commode = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      $$result.css.add(css3);
-      return `<div class="${"flex flex-col "}"><div class="${"m-auto max-w-prose flex flex-col items-center"}"><h1 class="${"text-3xl uppercase text-center mb-3"}">Commode EVEREST</h1>
+      let $seo, $$unsubscribe_seo;
+      $$unsubscribe_seo = subscribe(seo, (value) => $seo = value);
+      set_store_value(seo, $seo = {
+        title: "Accueil",
+        description: "Popi Creations Meuble unique Design Furniture Marqueterie Multiplex Laiton Chaine Oak Modulable Montagne"
+      }, $seo);
+      $$result.css.add(css6);
+      $$unsubscribe_seo();
+      return `<div class="${"flex flex-col "}"><div class="${"m-auto max-w-prose flex flex-col items-center p-3"}"><h1 class="${"text-3xl uppercase text-center mb-3 svelte-1w8o3tf"}">Commode EVEREST</h1>
 		<div>Ch\xEAne - Multiplex bouleau - Laiton</div>
-		<div>91 x 100 x 33,5 ( vendu )</div>
-		<img class="${"mb-80 mt-48 svelte-19zznr7"}" style="${""}" src="${"everest-face.png"}">
-		<img class="${"mb-80 svelte-19zznr7"}" src="${"everest-cote2.png"}">
-		<img class="${"mb-80 svelte-19zznr7"}" src="${"everest-detail.png"}">
-		<img class="${"mb-80 svelte-19zznr7"}" src="${"everest-detail2.png"}">
-		<img class="${"mb-80 svelte-19zznr7"}" src="${"everest-double.png"}">
-		<img class="${"mb-80 svelte-19zznr7"}" src="${"everest-detail3.png"}"></div>
+		<div>91 x 100 x 33,5</div>
+		<p class="${"text-gray-500"}">vendu</p>
+		<img class="${"mb-40 mt-20 svelte-1w8o3tf"}" style="${""}" src="${"everest-face.png"}">
+		<img class="${"mb-40 svelte-1w8o3tf"}" src="${"everest-cote2.png"}">
+		<img class="${"mb-40 svelte-1w8o3tf"}" src="${"everest-detail.png"}">
+		<img class="${"mb-40 svelte-1w8o3tf"}" src="${"everest-detail2.png"}">
+		<img class="${"mb-40 svelte-1w8o3tf"}" src="${"everest-double.png"}">
+		<img class="${"mb-12 svelte-1w8o3tf"}" src="${"everest-detail3.png"}">
+		<div class="${"flex w-full justify-center items-center"}"><a class="${"/table-1"}" href="${"/table-1"}">${validate_component(ArrowLeftFill, "ArrowLeftIcon").$$render($$result, { size: "30" }, {}, {})}</a>
+			<a class="${"ml-auto"}" href="${"/table-bleu"}">${validate_component(ArrowRightFill, "ArrowRightIcon").$$render($$result, { size: "30" }, {}, {})}</a></div></div>
 </div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/contact-21718160.js
-var contact_21718160_exports = {};
-__export(contact_21718160_exports, {
+// .svelte-kit/output/server/chunks/contact-26824d30.js
+var contact_26824d30_exports = {};
+__export(contact_26824d30_exports, {
   default: () => Contact
 });
 var InstagramLine, Contact;
-var init_contact_21718160 = __esm({
-  ".svelte-kit/output/server/chunks/contact-21718160.js"() {
+var init_contact_26824d30 = __esm({
+  ".svelte-kit/output/server/chunks/contact-26824d30.js"() {
     init_shims();
-    init_app_c9ce01b5();
+    init_app_2464a088();
+    init_store_7a94b2c7();
     InstagramLine = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let $$restProps = compute_rest_props($$props, ["size", "color", "class"]);
       let { size = "1em" } = $$props;
@@ -4951,107 +5170,231 @@ var init_contact_21718160 = __esm({
       ])}><path fill="${"none"}" d="${"M0 0h24v24H0z"}"></path><path fill-rule="${"nonzero"}" d="${"M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0-2a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm6.5-.25a1.25 1.25 0 0 1-2.5 0 1.25 1.25 0 0 1 2.5 0zM12 4c-2.474 0-2.878.007-4.029.058-.784.037-1.31.142-1.798.332-.434.168-.747.369-1.08.703a2.89 2.89 0 0 0-.704 1.08c-.19.49-.295 1.015-.331 1.798C4.006 9.075 4 9.461 4 12c0 2.474.007 2.878.058 4.029.037.783.142 1.31.331 1.797.17.435.37.748.702 1.08.337.336.65.537 1.08.703.494.191 1.02.297 1.8.333C9.075 19.994 9.461 20 12 20c2.474 0 2.878-.007 4.029-.058.782-.037 1.309-.142 1.797-.331.433-.169.748-.37 1.08-.702.337-.337.538-.65.704-1.08.19-.493.296-1.02.332-1.8.052-1.104.058-1.49.058-4.029 0-2.474-.007-2.878-.058-4.029-.037-.782-.142-1.31-.332-1.798a2.911 2.911 0 0 0-.703-1.08 2.884 2.884 0 0 0-1.08-.704c-.49-.19-1.016-.295-1.798-.331C14.925 4.006 14.539 4 12 4zm0-2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2z"}"></path></svg>`;
     });
     Contact = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let $seo, $$unsubscribe_seo;
+      $$unsubscribe_seo = subscribe(seo, (value) => $seo = value);
+      set_store_value(seo, $seo = { title: "Contact", description: "Contact" }, $seo);
+      $$unsubscribe_seo();
       return `<div class="${"p-6"}"><h1 class="${"mb-12"}">Cr\xE9ation de meuble unique</h1>
 	<a href="${"mailto: alix.nicolas1@gmail.com"}">alix.nicolas1@gmail.com</a>
 	<div class="${"flex items-center"}"><p>Pour suivre les nouveaut\xE9s:</p>
-		<a class="${"ml-1 flex items-center "}" href="${"https://www.instagram.com/__popi__/"}"><span class="${"mr-1"}">Popi</span> <span>${validate_component(InstagramLine, "Insta").$$render($$result, { size: "20" }, {}, {})}</span></a></div></div>`;
+		<a class="${"ml-1 flex items-center "}" href="${"https://www.instagram.com/__popi__/"}"><span class="${"mr-1"}">Popi</span> <span>${validate_component(InstagramLine, "Insta").$$render($$result, { size: "20" }, {}, {})}</span></a></div></div>
+
+`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/table-1-f732e9f3.js
-var table_1_f732e9f3_exports = {};
-__export(table_1_f732e9f3_exports, {
+// .svelte-kit/output/server/chunks/table-1-bac0c8de.js
+var table_1_bac0c8de_exports = {};
+__export(table_1_bac0c8de_exports, {
   default: () => Table_1
 });
-var Table_1;
-var init_table_1_f732e9f3 = __esm({
-  ".svelte-kit/output/server/chunks/table-1-f732e9f3.js"() {
+var css7, Table_1;
+var init_table_1_bac0c8de = __esm({
+  ".svelte-kit/output/server/chunks/table-1-bac0c8de.js"() {
     init_shims();
-    init_app_c9ce01b5();
+    init_app_2464a088();
+    init_ArrowRightFill_51054c0c();
+    init_ArrowLeftFill_f7063ddf();
+    init_store_7a94b2c7();
+    css7 = {
+      code: "h1.svelte-1of3d54{color:tomato}img.svelte-1of3d54{@apply px-1;}",
+      map: null
+    };
     Table_1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      return `<div class="${"flex flex-col "}"><div class="${"m-auto max-w-prose flex flex-col items-center"}"><h1 class="${"text-3xl uppercase text-center mb-3"}">Table BABY</h1>
+      let $seo, $$unsubscribe_seo;
+      $$unsubscribe_seo = subscribe(seo, (value) => $seo = value);
+      set_store_value(seo, $seo = {
+        title: "Table Baby",
+        description: "Popi Creations Meuble unique Design Furniture Table Moderne Hetre Plexi Couleur"
+      }, $seo);
+      $$result.css.add(css7);
+      $$unsubscribe_seo();
+      return `<div class="${"flex flex-col flex-grow"}"><div class="${"sm:min-w-prose flex-grow m-auto max-w-prose flex flex-col items-center p-3"}"><h1 class="${"text-3xl uppercase text-center  svelte-1of3d54"}">Table Baby</h1>
 
-		<div>H\xEAtre - Plexi fluo - Alupanel - Multiplex bouleau - Verre</div>
-		<div>40 x 46,5 x 36,5</div>
-		<div class="${"text-3xl uppercase text-center mt-80"}">under construction</div></div>
+		<p>H\xEAtre - Plexi fluo - Alupanel - Multiplex bouleau - Verre</p>
+		<p>40 x 46,5 x 36,5</p>
+		<p class="${"text-gray-500"}">260\u20AC</p>
+		<img class="${"mt-20 svelte-1of3d54"}" src="${"baby-cote.webp"}">
+		<img class="${"mb-40 mt-48 svelte-1of3d54"}" style="${""}" src="${"baby-face.webp"}">
+		<img class="${" svelte-1of3d54"}" src="${"baby-haut.webp"}">
+		<img class="${"mt-40 mb-12 svelte-1of3d54"}" src="${"baby-situation.webp"}">
+		<div class="${"flex w-full justify-center items-center mb-3 "}"><a class="${""}" href="${"/creations"}">${validate_component(ArrowLeftFill, "ArrowLeftIcon").$$render($$result, { size: "30" }, {}, {})}</a>
+			<a class="${"ml-auto"}" href="${"/commode"}">${validate_component(ArrowRightFill, "ArrowRightIcon").$$render($$result, { size: "30" }, {}, {})}</a></div></div>
 </div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/table-2-9a0ed9a7.js
-var table_2_9a0ed9a7_exports = {};
-__export(table_2_9a0ed9a7_exports, {
+// .svelte-kit/output/server/chunks/table-2-58ad415f.js
+var table_2_58ad415f_exports = {};
+__export(table_2_58ad415f_exports, {
   default: () => Table_2
 });
-var Table_2;
-var init_table_2_9a0ed9a7 = __esm({
-  ".svelte-kit/output/server/chunks/table-2-9a0ed9a7.js"() {
+var css8, Table_2;
+var init_table_2_58ad415f = __esm({
+  ".svelte-kit/output/server/chunks/table-2-58ad415f.js"() {
     init_shims();
-    init_app_c9ce01b5();
+    init_app_2464a088();
+    init_ArrowRightFill_51054c0c();
+    init_store_7a94b2c7();
+    css8 = {
+      code: "h1.svelte-134c13p{color:dodgerblue}img.svelte-134c13p{@apply px-1;}",
+      map: null
+    };
     Table_2 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      return `<div class="${"flex flex-col "}"><div class="${"m-auto max-w-prose flex flex-col items-center"}"><h1 class="${"text-3xl uppercase text-center mb-3"}">Table GRANDE SOEUR</h1>
+      let $seo, $$unsubscribe_seo;
+      $$unsubscribe_seo = subscribe(seo, (value) => $seo = value);
+      set_store_value(seo, $seo = {
+        title: "Table Grande Soeur",
+        description: "Popi Creations Meuble unique Design Furniture Table Moderne Hetre Plexi Couleur"
+      }, $seo);
+      $$result.css.add(css8);
+      $$unsubscribe_seo();
+      return `<div class="${"flex flex-col "}"><div class="${"sm:min-w-prose m-auto max-w-prose flex flex-col items-center p-3"}"><h1 class="${"mx-auto text-3xl uppercase text-center mb-3 svelte-134c13p"}">Table grande soeur</h1>
 
-		<div>H\xEAtre - Plexi fluo - Alupanel -Multiplex bouleau - Verre</div>
-		<div>40 x 70,5 x 46,5</div>
-		<div class="${"text-3xl uppercase text-center mt-80"}">under construction</div></div>
+		<p>H\xEAtre - Plexi fluo - Alupanel -Multiplex bouleau - Verre</p>
+		<p>40 x 70,5 x 46,5</p>
+		<p class="${"text-gray-500"}">420\u20AC</p>
+		<img class="${"mt-20 svelte-134c13p"}" src="${"grandesoeur-face.webp"}">
+		<img class="${"mb-40 mt-48 svelte-134c13p"}" style="${""}" src="${"grandesoeur-face.webp"}">
+		<img class="${" svelte-134c13p"}" src="${"grandesoeur-haut.webp"}">
+		<img class="${"mt-40 mb-12  svelte-134c13p"}" src="${"grandesoeur-situation.webp"}">
+		<div class="${"flex w-full justify-center items-center mb-3 "}"><a class="${"ml-auto"}" href="${"/table-1"}">${validate_component(ArrowRightFill, "ArrowRightIcon").$$render($$result, { size: "30" }, {}, {})}</a></div></div>
 </div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/buffet-39f2d115.js
-var buffet_39f2d115_exports = {};
-__export(buffet_39f2d115_exports, {
+// .svelte-kit/output/server/chunks/buffet-c9bd62f8.js
+var buffet_c9bd62f8_exports = {};
+__export(buffet_c9bd62f8_exports, {
   default: () => Buffet
 });
-var css4, Buffet;
-var init_buffet_39f2d115 = __esm({
-  ".svelte-kit/output/server/chunks/buffet-39f2d115.js"() {
+var Home2Fill, css9, Buffet;
+var init_buffet_c9bd62f8 = __esm({
+  ".svelte-kit/output/server/chunks/buffet-c9bd62f8.js"() {
     init_shims();
-    init_app_c9ce01b5();
-    css4 = {
-      code: "img.svelte-19zznr7{@apply px-1;}",
+    init_app_2464a088();
+    init_ArrowLeftFill_f7063ddf();
+    init_store_7a94b2c7();
+    Home2Fill = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let $$restProps = compute_rest_props($$props, ["size", "color", "class"]);
+      let { size = "1em" } = $$props;
+      let { color = "currentColor" } = $$props;
+      let { class: customClass = "" } = $$props;
+      if ($$props.size === void 0 && $$bindings.size && size !== void 0)
+        $$bindings.size(size);
+      if ($$props.color === void 0 && $$bindings.color && color !== void 0)
+        $$bindings.color(color);
+      if ($$props.class === void 0 && $$bindings.class && customClass !== void 0)
+        $$bindings.class(customClass);
+      return `<svg${spread([
+        { xmlns: "http://www.w3.org/2000/svg" },
+        { viewBox: "0 0 24 24" },
+        { width: escape_attribute_value(size) },
+        { height: escape_attribute_value(size) },
+        { fill: escape_attribute_value(color) },
+        {
+          class: "remixicon " + escape(customClass)
+        },
+        escape_object($$restProps)
+      ])}><path fill="${"none"}" d="${"M0 0h24v24H0z"}"></path><path d="${"M20 20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9z"}"></path></svg>`;
+    });
+    css9 = {
+      code: "img.svelte-16wx4ek{@apply px-1;}h1.svelte-16wx4ek{color:#f82f4e}",
       map: null
     };
     Buffet = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      $$result.css.add(css4);
-      return `<div class="${"flex flex-col "}"><div class="${"m-auto max-w-prose flex flex-col items-center"}"><h1 class="${"text-3xl uppercase mb-3"}">Buffet</h1>
-		<div>Etag\xE8re CLAPIER Multiplex bouleau - Sapin</div>
+      let $seo, $$unsubscribe_seo;
+      $$unsubscribe_seo = subscribe(seo, (value) => $seo = value);
+      set_store_value(seo, $seo = {
+        title: "Buffet",
+        description: "modulable Buffet Popi Creations Meuble unique Design Furniture Multiplex"
+      }, $seo);
+      $$result.css.add(css9);
+      $$unsubscribe_seo();
+      return `<div class="${"flex flex-col "}"><div class="${"m-auto max-w-prose flex flex-col items-center p-3"}"><h1 class="${"text-3xl uppercase text-center  svelte-16wx4ek"}">Etag\xE8re CLAPIER</h1>
+		<div>Multiplex bouleau - Sapin</div>
 		<div>160 x 120 x 37,5</div>
-		<img class="${"mb-80 svelte-19zznr7"}" src="${"buffet-cote.png"}">
-		<img class="${"mb-80 svelte-19zznr7"}" src="${"buffet-face.png"}">
-		<img class="${"mb-80 svelte-19zznr7"}" src="${"buffet-grille.png"}">
-		<img class="${"mb-80 svelte-19zznr7"}" src="${"buffet-detail.png"}"></div>
+		<p class="${"text-gray-500"}">vendu</p>
+		<img class="${"mb-40 svelte-16wx4ek"}" src="${"buffet-cote.png"}">
+		<img class="${"mb-60 svelte-16wx4ek"}" src="${"buffet-grille.png"}">
+		<img class="${"mb-20 svelte-16wx4ek"}" src="${"buffet-detail.png"}">
+		<div class="${"flex w-full items-center "}"><a class="${"/table-2"}" href="${"/meuble-entree"}">${validate_component(ArrowLeftFill, "ArrowLeftIcon").$$render($$result, { size: "30" }, {}, {})}</a>
+			<a class="${"ml-auto"}" href="${"/creations"}">${validate_component(Home2Fill, "HomeIcon").$$render($$result, { size: "30" }, {}, {})}</a></div></div>
 </div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/banc-12172b37.js
-var banc_12172b37_exports = {};
-__export(banc_12172b37_exports, {
-  default: () => Banc
+// .svelte-kit/output/server/chunks/collab-6c37a00f.js
+var collab_6c37a00f_exports = {};
+__export(collab_6c37a00f_exports, {
+  default: () => Collab
 });
-var Banc;
-var init_banc_12172b37 = __esm({
-  ".svelte-kit/output/server/chunks/banc-12172b37.js"() {
+var Collab;
+var init_collab_6c37a00f = __esm({
+  ".svelte-kit/output/server/chunks/collab-6c37a00f.js"() {
     init_shims();
-    init_app_c9ce01b5();
-    Banc = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      return `<div class="${"flex flex-col "}"><div class="${"m-auto max-w-prose flex flex-col items-center"}"><h1 class="${"text-3xl uppercase mb-3"}">Banc</h1>
-		<div>Banc CHAUSETTE DE SPORT Sapin</div>
-		<div>32 x 78,5 x 16,5</div>
-		<img class="${"mb-80 mt-48"}" style="${""}" src="${"banc-face.png"}">
-		<img class="${"mb-80"}" src="${"banc-haut.png"}">
-		<img class="${"mb-80"}" width="${"400"}" src="${"banc-detail.png"}">
-		<img src="${"banc-pied.png"}"></div></div>`;
+    init_app_2464a088();
+    init_store_7a94b2c7();
+    Collab = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let $seo, $$unsubscribe_seo;
+      $$unsubscribe_seo = subscribe(seo, (value) => $seo = value);
+      set_store_value(seo, $seo = {
+        title: "Collaboration",
+        description: "Artiste Popi Creations Meuble unique Design Furniture Collaborations multidisciplinaire"
+      }, $seo);
+      $$unsubscribe_seo();
+      return `<div class="${"p-6"}"><h1 class="${"text-3xl"}">Under construction...</h1></div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/app-c9ce01b5.js
+// .svelte-kit/output/server/chunks/banc-fdf98c46.js
+var banc_fdf98c46_exports = {};
+__export(banc_fdf98c46_exports, {
+  default: () => Banc
+});
+var css10, Banc;
+var init_banc_fdf98c46 = __esm({
+  ".svelte-kit/output/server/chunks/banc-fdf98c46.js"() {
+    init_shims();
+    init_app_2464a088();
+    init_ArrowRightFill_51054c0c();
+    init_ArrowLeftFill_f7063ddf();
+    init_store_7a94b2c7();
+    css10 = {
+      code: "h1.svelte-11fqoxy{color:#5cac92}",
+      map: null
+    };
+    Banc = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let $seo, $$unsubscribe_seo;
+      $$unsubscribe_seo = subscribe(seo, (value) => $seo = value);
+      set_store_value(seo, $seo = {
+        title: "Banc",
+        description: "Banc Sapin Bleu Meuble Popi design Atelier"
+      }, $seo);
+      $$result.css.add(css10);
+      $$unsubscribe_seo();
+      return `<div class="${"flex flex-col "}"><div class="${"m-auto max-w-prose flex flex-col items-center p-3"}"><h1 class="${"text-3xl uppercase text-center mb-3 svelte-11fqoxy"}">Banc CHAUSSETTE DE SPORT</h1>
+		<p>Sapin 32 x 78,5 x 16,5</p>
+		<p class="${"text-gray-500"}">100\u20AC</p>
+		<img class="${"mb-52 mt-28"}" style="${""}" src="${"banc-face.png"}">
+		<img class="${"mb-52"}" src="${"banc-haut.png"}">
+		<div class="${"flex"}"><img class="${"mb-40"}" width="${"400"}" src="${"banc-detail.png"}">
+			<img class="${"py-12"}" src="${"banc-pied.png"}"></div>
+		<img class="${"mb-52 mt-32 px-12"}" src="${"banc-situation.webp"}">
+		<img class="${"mb-12 px-12"}" src="${"banc-situation2.webp"}">
+		<div class="${"flex w-full justify-center items-center "}"><a class="${"/table-2"}" href="${"/table-bleu"}">${validate_component(ArrowLeftFill, "ArrowLeftIcon").$$render($$result, { size: "30" }, {}, {})}</a>
+			<a class="${"ml-auto"}" href="${"/meuble-entree"}">${validate_component(ArrowRightFill, "ArrowRightIcon").$$render($$result, { size: "30" }, {}, {})}</a></div></div>
+</div>`;
+    });
+  }
+});
+
+// .svelte-kit/output/server/chunks/app-2464a088.js
 function get_single_valued_header(headers, key) {
   const value = headers[key];
   if (Array.isArray(value)) {
@@ -5326,28 +5669,28 @@ function stringifyString(str) {
   result += '"';
   return result;
 }
-function noop() {
+function noop$1() {
 }
-function safe_not_equal(a, b) {
+function safe_not_equal$1(a, b) {
   return a != a ? b == b : a !== b || (a && typeof a === "object" || typeof a === "function");
 }
-function writable(value, start = noop) {
+function writable2(value, start = noop$1) {
   let stop;
   const subscribers = new Set();
   function set(new_value) {
-    if (safe_not_equal(value, new_value)) {
+    if (safe_not_equal$1(value, new_value)) {
       value = new_value;
       if (stop) {
-        const run_queue = !subscriber_queue.length;
+        const run_queue = !subscriber_queue2.length;
         for (const subscriber of subscribers) {
           subscriber[1]();
-          subscriber_queue.push(subscriber, value);
+          subscriber_queue2.push(subscriber, value);
         }
         if (run_queue) {
-          for (let i = 0; i < subscriber_queue.length; i += 2) {
-            subscriber_queue[i][0](subscriber_queue[i + 1]);
+          for (let i = 0; i < subscriber_queue2.length; i += 2) {
+            subscriber_queue2[i][0](subscriber_queue2[i + 1]);
           }
-          subscriber_queue.length = 0;
+          subscriber_queue2.length = 0;
         }
       }
     }
@@ -5355,11 +5698,11 @@ function writable(value, start = noop) {
   function update(fn) {
     set(fn(value));
   }
-  function subscribe(run2, invalidate = noop) {
+  function subscribe2(run2, invalidate = noop$1) {
     const subscriber = [run2, invalidate];
     subscribers.add(subscriber);
     if (subscribers.size === 1) {
-      stop = start(set) || noop;
+      stop = start(set) || noop$1;
     }
     run2(value);
     return () => {
@@ -5370,7 +5713,7 @@ function writable(value, start = noop) {
       }
     };
   }
-  return { set, update, subscribe };
+  return { set, update, subscribe: subscribe2 };
 }
 function hash(value) {
   let hash2 = 5381;
@@ -5443,11 +5786,11 @@ async function render_response({
         is_private = true;
       maxage = loaded.maxage;
     });
-    const session = writable($session);
+    const session = writable2($session);
     const props = {
       stores: {
-        page: writable(null),
-        navigating: writable(null),
+        page: writable2(null),
+        navigating: writable2(null),
         session
       },
       page,
@@ -6236,6 +6579,8 @@ async function respond(incoming, options2, state = {}) {
     };
   }
 }
+function noop() {
+}
 function run(fn) {
   return fn();
 }
@@ -6245,6 +6590,16 @@ function blank_object() {
 function run_all(fns) {
   fns.forEach(run);
 }
+function safe_not_equal(a, b) {
+  return a != a ? b == b : a !== b || (a && typeof a === "object" || typeof a === "function");
+}
+function subscribe(store, ...callbacks) {
+  if (store == null) {
+    return noop;
+  }
+  const unsub = store.subscribe(...callbacks);
+  return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
+}
 function compute_rest_props(props, keys) {
   const rest = {};
   keys = new Set(keys);
@@ -6252,6 +6607,10 @@ function compute_rest_props(props, keys) {
     if (!keys.has(k) && k[0] !== "$")
       rest[k] = props[k];
   return rest;
+}
+function set_store_value(store, ret, value) {
+  store.set(value);
+  return ret;
 }
 function set_current_component(component) {
   current_component = component;
@@ -6365,9 +6724,9 @@ function init(settings = default_settings) {
     amp: false,
     dev: false,
     entry: {
-      file: assets + "/_app/start-7f12327c.js",
+      file: assets + "/_app/start-00dfe398.js",
       css: [assets + "/_app/assets/start-d5b4de3e.css"],
-      js: [assets + "/_app/start-7f12327c.js", assets + "/_app/chunks/vendor-ecbd12a2.js"]
+      js: [assets + "/_app/start-00dfe398.js", assets + "/_app/chunks/vendor-07cba1d0.js"]
     },
     fetched: void 0,
     floc: false,
@@ -6410,9 +6769,9 @@ function render(request, {
   const host = request.headers["host"];
   return respond({ ...request, host }, options, { prerender });
 }
-var __accessCheck, __privateGet, __privateAdd, __privateSet, _map, chars, unsafeChars, reserved, escaped$1, objectProtoOwnPropertyNames, subscriber_queue, escape_json_string_in_html_dict, escape_html_attr_dict, s$1, s, absolute, ReadOnlyFormData, current_component, boolean_attributes, invalid_attribute_name_character, escaped, missing_component, on_destroy, css5, Root, base, assets, user_hooks, template, options, default_settings, empty, manifest, get_hooks, module_lookup, metadata_lookup;
-var init_app_c9ce01b5 = __esm({
-  ".svelte-kit/output/server/chunks/app-c9ce01b5.js"() {
+var __accessCheck, __privateGet, __privateAdd, __privateSet, _map, chars, unsafeChars, reserved, escaped$1, objectProtoOwnPropertyNames, subscriber_queue2, escape_json_string_in_html_dict, escape_html_attr_dict, s$1, s, absolute, ReadOnlyFormData, current_component, boolean_attributes, invalid_attribute_name_character, escaped, missing_component, on_destroy, css11, Root, base, assets, user_hooks, template, options, default_settings, empty, manifest, get_hooks, module_lookup, metadata_lookup;
+var init_app_2464a088 = __esm({
+  ".svelte-kit/output/server/chunks/app-2464a088.js"() {
     init_shims();
     __accessCheck = (obj, member, msg) => {
       if (!member.has(obj))
@@ -6451,7 +6810,7 @@ var init_app_c9ce01b5 = __esm({
     };
     objectProtoOwnPropertyNames = Object.getOwnPropertyNames(Object.prototype).sort().join("\0");
     Promise.resolve();
-    subscriber_queue = [];
+    subscriber_queue2 = [];
     escape_json_string_in_html_dict = {
       '"': '\\"',
       "<": "\\u003C",
@@ -6555,7 +6914,7 @@ var init_app_c9ce01b5 = __esm({
     missing_component = {
       $$render: () => ""
     };
-    css5 = {
+    css11 = {
       code: "#svelte-announcer.svelte-1j55zn5{position:absolute;left:0;top:0;clip:rect(0 0 0 0);clip-path:inset(50%);overflow:hidden;white-space:nowrap;width:1px;height:1px}",
       map: null
     };
@@ -6580,7 +6939,7 @@ var init_app_c9ce01b5 = __esm({
         $$bindings.props_1(props_1);
       if ($$props.props_2 === void 0 && $$bindings.props_2 && props_2 !== void 0)
         $$bindings.props_2(props_2);
-      $$result.css.add(css5);
+      $$result.css.add(css11);
       {
         stores.page.set(page);
       }
@@ -6606,7 +6965,7 @@ ${``}`;
     default_settings = { paths: { "base": "", "assets": "" } };
     empty = () => ({});
     manifest = {
-      assets: [{ "file": ".DS_Store", "size": 10244, "type": null }, { "file": "banc-detail.png", "size": 130364, "type": "image/png" }, { "file": "banc-face.png", "size": 300412, "type": "image/png" }, { "file": "banc-haut.png", "size": 485498, "type": "image/png" }, { "file": "banc-pied.png", "size": 47763, "type": "image/png" }, { "file": "banc.png", "size": 3209645, "type": "image/png" }, { "file": "buffet-cote.png", "size": 668931, "type": "image/png" }, { "file": "buffet-detail.png", "size": 655653, "type": "image/png" }, { "file": "buffet-face.png", "size": 900448, "type": "image/png" }, { "file": "buffet-grille.png", "size": 1300463, "type": "image/png" }, { "file": "buffet.png", "size": 1594607, "type": "image/png" }, { "file": "commode.png", "size": 3660452, "type": "image/png" }, { "file": "creations.png", "size": 935406, "type": "image/png" }, { "file": "entree-cote.png", "size": 8882854, "type": "image/png" }, { "file": "entree-diag.png", "size": 10262723, "type": "image/png" }, { "file": "entree-face.png", "size": 6264936, "type": "image/png" }, { "file": "entree-haut.png", "size": 6568377, "type": "image/png" }, { "file": "everest-2.jpeg", "size": 178082, "type": "image/jpeg" }, { "file": "everest-cote2.png", "size": 355847, "type": "image/png" }, { "file": "everest-detail.png", "size": 429811, "type": "image/png" }, { "file": "everest-detail2.png", "size": 353942, "type": "image/png" }, { "file": "everest-detail3.png", "size": 233756, "type": "image/png" }, { "file": "everest-double.png", "size": 192187, "type": "image/png" }, { "file": "everest-face.png", "size": 246458, "type": "image/png" }, { "file": "everest.jpeg", "size": 105155, "type": "image/jpeg" }, { "file": "ex site.png", "size": 125627, "type": "image/png" }, { "file": "favicon.png", "size": 1571, "type": "image/png" }, { "file": "home-meuble.png", "size": 2096098, "type": "image/png" }, { "file": "meuble entree.png", "size": 3139161, "type": "image/png" }, { "file": "popibleu.png", "size": 260351, "type": "image/png" }, { "file": "popijaune.png", "size": 244574, "type": "image/png" }, { "file": "popirouge.png", "size": 221574, "type": "image/png" }, { "file": "popivert.png", "size": 253290, "type": "image/png" }, { "file": "slash.jpeg", "size": 15729, "type": "image/jpeg" }, { "file": "slash.png", "size": 59808, "type": "image/png" }, { "file": "slash.svg", "size": 18393, "type": "image/svg+xml" }, { "file": "table 1.png", "size": 522801, "type": "image/png" }, { "file": "table 2.png", "size": 522801, "type": "image/png" }, { "file": "table 3.png", "size": 725042, "type": "image/png" }, { "file": "table bleu angle.png", "size": 8368171, "type": "image/png" }, { "file": "table bleu.png", "size": 687437, "type": "image/png" }, { "file": "table-1.png", "size": 219059, "type": "image/png" }, { "file": "table-2.png", "size": 234753, "type": "image/png" }, { "file": "table-base.jpeg", "size": 132560, "type": "image/jpeg" }, { "file": "table-bleu-angle.png", "size": 371726, "type": "image/png" }, { "file": "table-bleu.png", "size": 214380, "type": "image/png" }, { "file": "tableu.png", "size": 424170, "type": "image/png" }, { "file": "tableuface.png", "size": 302725, "type": "image/png" }, { "file": "tableuhaut.png", "size": 13632229, "type": "image/png" }],
+      assets: [{ "file": ".DS_Store", "size": 8196, "type": null }, { "file": "baby-cote.png", "size": 445505, "type": "image/png" }, { "file": "baby-cote.webp", "size": 33362, "type": "image/webp" }, { "file": "baby-face.png", "size": 285488, "type": "image/png" }, { "file": "baby-face.webp", "size": 18562, "type": "image/webp" }, { "file": "baby-haut.png", "size": 255050, "type": "image/png" }, { "file": "baby-haut.webp", "size": 9548, "type": "image/webp" }, { "file": "baby-situation.jpeg", "size": 271449, "type": "image/jpeg" }, { "file": "baby-situation.webp", "size": 143646, "type": "image/webp" }, { "file": "banc-detail.png", "size": 130364, "type": "image/png" }, { "file": "banc-face.png", "size": 300412, "type": "image/png" }, { "file": "banc-haut.png", "size": 485498, "type": "image/png" }, { "file": "banc-pied.png", "size": 47763, "type": "image/png" }, { "file": "banc-situation.jpeg", "size": 188049, "type": "image/jpeg" }, { "file": "banc-situation.webp", "size": 77336, "type": "image/webp" }, { "file": "banc-situation2.webp", "size": 39642, "type": "image/webp" }, { "file": "banc.png", "size": 3209645, "type": "image/png" }, { "file": "banc.webp", "size": 120620, "type": "image/webp" }, { "file": "buffet-cote.png", "size": 668931, "type": "image/png" }, { "file": "buffet-detail.png", "size": 616940, "type": "image/png" }, { "file": "buffet-face.png", "size": 900448, "type": "image/png" }, { "file": "buffet-grille.png", "size": 1300463, "type": "image/png" }, { "file": "buffet.jpeg", "size": 139086, "type": "image/jpeg" }, { "file": "buffet.png", "size": 1594607, "type": "image/png" }, { "file": "buffet.webp", "size": 133162, "type": "image/webp" }, { "file": "commode.jpeg", "size": 279735, "type": "image/jpeg" }, { "file": "commode.png", "size": 3660452, "type": "image/png" }, { "file": "commode.webp", "size": 237734, "type": "image/webp" }, { "file": "creations.png", "size": 935406, "type": "image/png" }, { "file": "entree-cote.png", "size": 8882854, "type": "image/png" }, { "file": "entree-cote.webp", "size": 250400, "type": "image/webp" }, { "file": "entree-diag.png", "size": 10262723, "type": "image/png" }, { "file": "entree-diag.webp", "size": 249680, "type": "image/webp" }, { "file": "entree-face.png", "size": 6264936, "type": "image/png" }, { "file": "entree-face.webp", "size": 148764, "type": "image/webp" }, { "file": "entree-haut.png", "size": 6568377, "type": "image/png" }, { "file": "entree-haut.webp", "size": 177354, "type": "image/webp" }, { "file": "everest-2.jpeg", "size": 178082, "type": "image/jpeg" }, { "file": "everest-cote2.png", "size": 355847, "type": "image/png" }, { "file": "everest-detail.png", "size": 429811, "type": "image/png" }, { "file": "everest-detail2.png", "size": 353942, "type": "image/png" }, { "file": "everest-detail3.png", "size": 233756, "type": "image/png" }, { "file": "everest-double.png", "size": 192187, "type": "image/png" }, { "file": "everest-face.png", "size": 246458, "type": "image/png" }, { "file": "everest.jpeg", "size": 105155, "type": "image/jpeg" }, { "file": "ex site.png", "size": 125627, "type": "image/png" }, { "file": "favicon.png", "size": 16576, "type": "image/png" }, { "file": "grandesoeur-cote.webp", "size": 53366, "type": "image/webp" }, { "file": "grandesoeur-face.webp", "size": 37980, "type": "image/webp" }, { "file": "grandesoeur-haut.webp", "size": 22874, "type": "image/webp" }, { "file": "grandesoeur-situation.webp", "size": 115838, "type": "image/webp" }, { "file": "home-meuble.png", "size": 2096098, "type": "image/png" }, { "file": "meuble entree.png", "size": 3139161, "type": "image/png" }, { "file": "meuble entree.webp", "size": 243698, "type": "image/webp" }, { "file": "popibleu.png", "size": 260351, "type": "image/png" }, { "file": "popijaune.png", "size": 244574, "type": "image/png" }, { "file": "popirouge.png", "size": 221574, "type": "image/png" }, { "file": "popivert.png", "size": 253290, "type": "image/png" }, { "file": "slash.jpeg", "size": 15729, "type": "image/jpeg" }, { "file": "slash.png", "size": 59808, "type": "image/png" }, { "file": "slash.svg", "size": 18393, "type": "image/svg+xml" }, { "file": "table 1.jpeg", "size": 43829, "type": "image/jpeg" }, { "file": "table 1.png", "size": 522801, "type": "image/png" }, { "file": "table 2.png", "size": 522801, "type": "image/png" }, { "file": "table 3.png", "size": 725042, "type": "image/png" }, { "file": "table bleu angle.png", "size": 8368171, "type": "image/png" }, { "file": "table bleu.png", "size": 687437, "type": "image/png" }, { "file": "table-1.jpeg", "size": 23239, "type": "image/jpeg" }, { "file": "table-1.png", "size": 219059, "type": "image/png" }, { "file": "table-1.webp", "size": 25654, "type": "image/webp" }, { "file": "table-2.jpeg", "size": 26749, "type": "image/jpeg" }, { "file": "table-2.png", "size": 234753, "type": "image/png" }, { "file": "table-2.webp", "size": 28838, "type": "image/webp" }, { "file": "table-base.jpeg", "size": 132560, "type": "image/jpeg" }, { "file": "table-bleu-angle.png", "size": 371726, "type": "image/png" }, { "file": "table-bleu.jpeg", "size": 22670, "type": "image/jpeg" }, { "file": "table-bleu.png", "size": 214380, "type": "image/png" }, { "file": "table-bleu.webp", "size": 22134, "type": "image/webp" }, { "file": "tableu.png", "size": 424170, "type": "image/png" }, { "file": "tableuface.png", "size": 288190, "type": "image/png" }, { "file": "tableuhaut.png", "size": 13632229, "type": "image/png" }],
       layout: "src/routes/__layout.svelte",
       error: ".svelte-kit/build/components/error.svelte",
       routes: [
@@ -6615,13 +6974,6 @@ ${``}`;
           pattern: /^\/$/,
           params: empty,
           a: ["src/routes/__layout.svelte", "src/routes/index.svelte"],
-          b: [".svelte-kit/build/components/error.svelte"]
-        },
-        {
-          type: "page",
-          pattern: /^\/collaborations\/?$/,
-          params: empty,
-          a: ["src/routes/__layout.svelte", "src/routes/collaborations.svelte"],
           b: [".svelte-kit/build/components/error.svelte"]
         },
         {
@@ -6682,6 +7034,13 @@ ${``}`;
         },
         {
           type: "page",
+          pattern: /^\/collab\/?$/,
+          params: empty,
+          a: ["src/routes/__layout.svelte", "src/routes/collab.svelte"],
+          b: [".svelte-kit/build/components/error.svelte"]
+        },
+        {
+          type: "page",
           pattern: /^\/banc\/?$/,
           params: empty,
           a: ["src/routes/__layout.svelte", "src/routes/banc.svelte"],
@@ -6696,21 +7055,21 @@ ${``}`;
       externalFetch: hooks.externalFetch || fetch
     });
     module_lookup = {
-      "src/routes/__layout.svelte": () => Promise.resolve().then(() => (init_layout_2a9c4b7d(), layout_2a9c4b7d_exports)),
-      ".svelte-kit/build/components/error.svelte": () => Promise.resolve().then(() => (init_error_12e143ca(), error_12e143ca_exports)),
-      "src/routes/index.svelte": () => Promise.resolve().then(() => (init_index_03538ebc(), index_03538ebc_exports)),
-      "src/routes/collaborations.svelte": () => Promise.resolve().then(() => (init_collaborations_d1076c44(), collaborations_d1076c44_exports)),
-      "src/routes/meuble-entree.svelte": () => Promise.resolve().then(() => (init_meuble_entree_8cba097e(), meuble_entree_8cba097e_exports)),
-      "src/routes/table-bleu.svelte": () => Promise.resolve().then(() => (init_table_bleu_b733ea5a(), table_bleu_b733ea5a_exports)),
-      "src/routes/creations.svelte": () => Promise.resolve().then(() => (init_creations_03243cd7(), creations_03243cd7_exports)),
-      "src/routes/commode.svelte": () => Promise.resolve().then(() => (init_commode_6c2e855c(), commode_6c2e855c_exports)),
-      "src/routes/contact.svelte": () => Promise.resolve().then(() => (init_contact_21718160(), contact_21718160_exports)),
-      "src/routes/table-1.svelte": () => Promise.resolve().then(() => (init_table_1_f732e9f3(), table_1_f732e9f3_exports)),
-      "src/routes/table-2.svelte": () => Promise.resolve().then(() => (init_table_2_9a0ed9a7(), table_2_9a0ed9a7_exports)),
-      "src/routes/buffet.svelte": () => Promise.resolve().then(() => (init_buffet_39f2d115(), buffet_39f2d115_exports)),
-      "src/routes/banc.svelte": () => Promise.resolve().then(() => (init_banc_12172b37(), banc_12172b37_exports))
+      "src/routes/__layout.svelte": () => Promise.resolve().then(() => (init_layout_880012f0(), layout_880012f0_exports)),
+      ".svelte-kit/build/components/error.svelte": () => Promise.resolve().then(() => (init_error_4f36b05e(), error_4f36b05e_exports)),
+      "src/routes/index.svelte": () => Promise.resolve().then(() => (init_index_0bdb8e2b(), index_0bdb8e2b_exports)),
+      "src/routes/meuble-entree.svelte": () => Promise.resolve().then(() => (init_meuble_entree_76302166(), meuble_entree_76302166_exports)),
+      "src/routes/table-bleu.svelte": () => Promise.resolve().then(() => (init_table_bleu_24ccb36a(), table_bleu_24ccb36a_exports)),
+      "src/routes/creations.svelte": () => Promise.resolve().then(() => (init_creations_8380ee4c(), creations_8380ee4c_exports)),
+      "src/routes/commode.svelte": () => Promise.resolve().then(() => (init_commode_961c843c(), commode_961c843c_exports)),
+      "src/routes/contact.svelte": () => Promise.resolve().then(() => (init_contact_26824d30(), contact_26824d30_exports)),
+      "src/routes/table-1.svelte": () => Promise.resolve().then(() => (init_table_1_bac0c8de(), table_1_bac0c8de_exports)),
+      "src/routes/table-2.svelte": () => Promise.resolve().then(() => (init_table_2_58ad415f(), table_2_58ad415f_exports)),
+      "src/routes/buffet.svelte": () => Promise.resolve().then(() => (init_buffet_c9bd62f8(), buffet_c9bd62f8_exports)),
+      "src/routes/collab.svelte": () => Promise.resolve().then(() => (init_collab_6c37a00f(), collab_6c37a00f_exports)),
+      "src/routes/banc.svelte": () => Promise.resolve().then(() => (init_banc_fdf98c46(), banc_fdf98c46_exports))
     };
-    metadata_lookup = { "src/routes/__layout.svelte": { "entry": "pages/__layout.svelte-62301a33.js", "css": ["assets/pages/__layout.svelte-2e55c353.css"], "js": ["pages/__layout.svelte-62301a33.js", "chunks/vendor-ecbd12a2.js"], "styles": [] }, ".svelte-kit/build/components/error.svelte": { "entry": "error.svelte-f92cf912.js", "css": [], "js": ["error.svelte-f92cf912.js", "chunks/vendor-ecbd12a2.js"], "styles": [] }, "src/routes/index.svelte": { "entry": "pages/index.svelte-3cae55de.js", "css": ["assets/pages/index.svelte-e52cc5b7.css", "assets/creations.svelte_svelte_type_style_lang-8c507b04.css"], "js": ["pages/index.svelte-3cae55de.js", "chunks/vendor-ecbd12a2.js"], "styles": [] }, "src/routes/collaborations.svelte": { "entry": "pages/collaborations.svelte-ce180e9d.js", "css": [], "js": ["pages/collaborations.svelte-ce180e9d.js", "chunks/vendor-ecbd12a2.js"], "styles": [] }, "src/routes/meuble-entree.svelte": { "entry": "pages/meuble-entree.svelte-df77a90f.js", "css": [], "js": ["pages/meuble-entree.svelte-df77a90f.js", "chunks/vendor-ecbd12a2.js"], "styles": [] }, "src/routes/table-bleu.svelte": { "entry": "pages/table-bleu.svelte-2d5d4df4.js", "css": [], "js": ["pages/table-bleu.svelte-2d5d4df4.js", "chunks/vendor-ecbd12a2.js"], "styles": [] }, "src/routes/creations.svelte": { "entry": "pages/creations.svelte-105a3e2b.js", "css": ["assets/creations.svelte_svelte_type_style_lang-8c507b04.css"], "js": ["pages/creations.svelte-105a3e2b.js", "chunks/vendor-ecbd12a2.js"], "styles": [] }, "src/routes/commode.svelte": { "entry": "pages/commode.svelte-f74cb2d2.js", "css": ["assets/pages/commode.svelte-dd4f304b.css"], "js": ["pages/commode.svelte-f74cb2d2.js", "chunks/vendor-ecbd12a2.js"], "styles": [] }, "src/routes/contact.svelte": { "entry": "pages/contact.svelte-46801add.js", "css": [], "js": ["pages/contact.svelte-46801add.js", "chunks/vendor-ecbd12a2.js"], "styles": [] }, "src/routes/table-1.svelte": { "entry": "pages/table-1.svelte-b104d791.js", "css": [], "js": ["pages/table-1.svelte-b104d791.js", "chunks/vendor-ecbd12a2.js"], "styles": [] }, "src/routes/table-2.svelte": { "entry": "pages/table-2.svelte-39be1525.js", "css": [], "js": ["pages/table-2.svelte-39be1525.js", "chunks/vendor-ecbd12a2.js"], "styles": [] }, "src/routes/buffet.svelte": { "entry": "pages/buffet.svelte-09550961.js", "css": ["assets/pages/commode.svelte-dd4f304b.css"], "js": ["pages/buffet.svelte-09550961.js", "chunks/vendor-ecbd12a2.js"], "styles": [] }, "src/routes/banc.svelte": { "entry": "pages/banc.svelte-7d0ce6f3.js", "css": [], "js": ["pages/banc.svelte-7d0ce6f3.js", "chunks/vendor-ecbd12a2.js"], "styles": [] } };
+    metadata_lookup = { "src/routes/__layout.svelte": { "entry": "pages/__layout.svelte-5d7ebfbd.js", "css": ["assets/pages/__layout.svelte-4a57878e.css"], "js": ["pages/__layout.svelte-5d7ebfbd.js", "chunks/vendor-07cba1d0.js"], "styles": [] }, ".svelte-kit/build/components/error.svelte": { "entry": "error.svelte-991c88a1.js", "css": [], "js": ["error.svelte-991c88a1.js", "chunks/vendor-07cba1d0.js"], "styles": [] }, "src/routes/index.svelte": { "entry": "pages/index.svelte-0fa9240e.js", "css": ["assets/pages/index.svelte-e52cc5b7.css"], "js": ["pages/index.svelte-0fa9240e.js", "chunks/vendor-07cba1d0.js", "chunks/store-bc0ee793.js"], "styles": [] }, "src/routes/meuble-entree.svelte": { "entry": "pages/meuble-entree.svelte-a5f6cff4.js", "css": ["assets/pages/meuble-entree.svelte-343f3403.css"], "js": ["pages/meuble-entree.svelte-a5f6cff4.js", "chunks/vendor-07cba1d0.js", "chunks/store-bc0ee793.js"], "styles": [] }, "src/routes/table-bleu.svelte": { "entry": "pages/table-bleu.svelte-72f1118b.js", "css": ["assets/pages/table-bleu.svelte-a785dd4c.css"], "js": ["pages/table-bleu.svelte-72f1118b.js", "chunks/vendor-07cba1d0.js", "chunks/store-bc0ee793.js"], "styles": [] }, "src/routes/creations.svelte": { "entry": "pages/creations.svelte-79785ae2.js", "css": ["assets/pages/creations.svelte-4b1ed2d9.css"], "js": ["pages/creations.svelte-79785ae2.js", "chunks/vendor-07cba1d0.js", "chunks/store-bc0ee793.js"], "styles": [] }, "src/routes/commode.svelte": { "entry": "pages/commode.svelte-340f642c.js", "css": ["assets/pages/commode.svelte-2b920777.css"], "js": ["pages/commode.svelte-340f642c.js", "chunks/vendor-07cba1d0.js", "chunks/store-bc0ee793.js"], "styles": [] }, "src/routes/contact.svelte": { "entry": "pages/contact.svelte-415b6ac3.js", "css": [], "js": ["pages/contact.svelte-415b6ac3.js", "chunks/vendor-07cba1d0.js", "chunks/store-bc0ee793.js"], "styles": [] }, "src/routes/table-1.svelte": { "entry": "pages/table-1.svelte-7dcb622e.js", "css": ["assets/pages/table-1.svelte-590b1d90.css"], "js": ["pages/table-1.svelte-7dcb622e.js", "chunks/vendor-07cba1d0.js", "chunks/store-bc0ee793.js"], "styles": [] }, "src/routes/table-2.svelte": { "entry": "pages/table-2.svelte-d6f348af.js", "css": ["assets/pages/table-2.svelte-e2f5de5e.css"], "js": ["pages/table-2.svelte-d6f348af.js", "chunks/vendor-07cba1d0.js", "chunks/store-bc0ee793.js"], "styles": [] }, "src/routes/buffet.svelte": { "entry": "pages/buffet.svelte-cafb9065.js", "css": ["assets/pages/buffet.svelte-04937163.css"], "js": ["pages/buffet.svelte-cafb9065.js", "chunks/vendor-07cba1d0.js", "chunks/store-bc0ee793.js"], "styles": [] }, "src/routes/collab.svelte": { "entry": "pages/collab.svelte-ac299609.js", "css": ["assets/banc.svelte_svelte_type_style_lang-e2d2a3b2.css"], "js": ["pages/collab.svelte-ac299609.js", "chunks/vendor-07cba1d0.js", "chunks/store-bc0ee793.js"], "styles": [] }, "src/routes/banc.svelte": { "entry": "pages/banc.svelte-b1059992.js", "css": ["assets/banc.svelte_svelte_type_style_lang-e2d2a3b2.css"], "js": ["pages/banc.svelte-b1059992.js", "chunks/vendor-07cba1d0.js", "chunks/store-bc0ee793.js"], "styles": [] } };
   }
 });
 
@@ -6722,7 +7081,7 @@ init_shims();
 
 // .svelte-kit/output/server/app.js
 init_shims();
-init_app_c9ce01b5();
+init_app_2464a088();
 
 // .svelte-kit/netlify/entry.js
 init();
