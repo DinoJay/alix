@@ -10,12 +10,32 @@
 
 <div class="p-6">
 	<h1 class="mb-12">Création de meuble unique</h1>
-	<a href="mailto: alix.nicolas1@gmail.com">alix.nicolas1@gmail.com</a>
-	<div class="flex items-center">
-		<p>Pour suivre les nouveautés:</p>
-		<a class="ml-1 flex items-center " href="https://www.instagram.com/__popi__/">
-			<span class="mr-1">Popi</span> <span><Insta size="20" /></span>
-		</a>
+	<div class="max-w-prose text-justify">
+		<p>
+			Après un master en Dessin (La Cambre) et une formation en Ébénisterie et Menuiserie (Efp), je
+			me lance dans la création de meubles ! Ils sont chacun uniques et fait à la main bien sûr. Je
+			suis toujours à la recherche de nouveaux matériaux, éléments ou couleurs qui m’inspirent dans
+			l’idée de la conception du nouveau meuble.
+		</p>
+		<p class="">
+			<span>
+				Les nouveautés sont publiées au fur et à mesure avec leur prix TVA incluse (mais ne comprend
+				pas le transport). Je suis sur Bruxelles si vous êtes intéressé et que vous voulez venir
+				voir le meuble en question. Pour suivre l’arrivée des nouveautés et l’avancement du projet
+				vous pouvez me suivre sur Instagram
+			</span>
+
+			<span class="inline-block ">
+				<span>
+					<a class=" flex items-end font-bold" href="https://www.instagram.com/__popi__/">
+						__popi__
+					</a>
+				</span>
+			</span>.
+		</p>
+	</div>
+	<div class="mt-12">
+		<a class="" href="mailto: alix.nicolas1@gmail.com">alix.nicolas1@gmail.com</a>
 	</div>
 </div>
 

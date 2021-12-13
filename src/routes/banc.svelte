@@ -16,11 +16,8 @@
 		<p class="text-gray-500">100€</p>
 		<img class="mb-52 mt-28" style="" src="banc-face.png" />
 		<img class="mb-52" src="banc-haut.png" />
-		<div class="flex">
-			<img class="mb-40" width="400" src="banc-detail.png" />
-			<img class="py-12" src="banc-pied.png" />
-		</div>
-		<img class="mb-52 mt-32 px-12" src="banc-situation.webp" />
+		<img class="mb-40" width="400" src="banc-detail.png" />
+		<img class="mb-32 mt-32 px-12" src="banc-situation.webp" />
 		<img class="mb-12 px-12" src="banc-situation2.webp" />
 		<div class="flex w-full justify-center items-center  ">
 			<a class="/table-2" href="/table-bleu">

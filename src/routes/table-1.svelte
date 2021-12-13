@@ -13,13 +13,15 @@
 	<div class="sm:min-w-prose flex-grow m-auto max-w-prose flex flex-col items-center p-3">
 		<h1 class="text-3xl uppercase text-center ">Table Baby</h1>
 
-		<p>Hêtre - Plexi fluo - Alupanel - Multiplex bouleau - Verre</p>
-		<p>40 x 46,5 x 36,5</p>
-		<p class="text-gray-500">260€</p>
+		<div class="text-center">
+			<p>Hêtre - Plexi fluo - Alupanel - Multiplex bouleau - Verre</p>
+			<p>40 x 46,5 x 36,5</p>
+			<p class="text-gray-500">260€</p>
+		</div>
 		<img class="mt-20" src="baby-cote.webp" />
 		<img class="mb-40 mt-48" style="" src="baby-face.webp" />
 		<img class="" src="baby-haut.webp" />
-		<img class="mt-40 mb-12" src="baby-situation.webp" />
+		<img class="mt-40 mb-12 situation" src="baby-situation.webp" />
 		<div class="flex w-full justify-center items-center mb-3 ">
 			<a class="" href="/creations">
 				<ArrowLeftIcon size="30" />
@@ -34,6 +36,9 @@
 <style>
 	h1 {
 		color: tomato;
+	}
+	.situation {
+		@apply px-12;
 	}
 	img {
 		@apply px-1;
