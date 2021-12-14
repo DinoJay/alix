@@ -4696,17 +4696,79 @@ var init_shims = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/__layout-6c81d282.js
-var layout_6c81d282_exports = {};
-__export(layout_6c81d282_exports, {
+// .svelte-kit/output/server/chunks/store-e3e0d8aa.js
+function writable(value, start = noop) {
+  let stop;
+  const subscribers = new Set();
+  function set(new_value) {
+    if (safe_not_equal(value, new_value)) {
+      value = new_value;
+      if (stop) {
+        const run_queue = !subscriber_queue.length;
+        for (const subscriber of subscribers) {
+          subscriber[1]();
+          subscriber_queue.push(subscriber, value);
+        }
+        if (run_queue) {
+          for (let i = 0; i < subscriber_queue.length; i += 2) {
+            subscriber_queue[i][0](subscriber_queue[i + 1]);
+          }
+          subscriber_queue.length = 0;
+        }
+      }
+    }
+  }
+  function update(fn) {
+    set(fn(value));
+  }
+  function subscribe2(run2, invalidate = noop) {
+    const subscriber = [run2, invalidate];
+    subscribers.add(subscriber);
+    if (subscribers.size === 1) {
+      stop = start(set) || noop;
+    }
+    run2(value);
+    return () => {
+      subscribers.delete(subscriber);
+      if (subscribers.size === 0) {
+        stop();
+        stop = null;
+      }
+    };
+  }
+  return { set, update, subscribe: subscribe2 };
+}
+var subscriber_queue, seo;
+var init_store_e3e0d8aa = __esm({
+  ".svelte-kit/output/server/chunks/store-e3e0d8aa.js"() {
+    init_shims();
+    init_app_9413a6c6();
+    subscriber_queue = [];
+    seo = writable({
+      title: "Atelier Popi",
+      description: "This is a description of my website"
+    });
+  }
+});
+
+// .svelte-kit/output/server/chunks/__layout-d9187a65.js
+var layout_d9187a65_exports = {};
+__export(layout_d9187a65_exports, {
   default: () => _layout,
   load: () => load
 });
-var MenuLine, PageTrans, css, load, _layout;
-var init_layout_6c81d282 = __esm({
-  ".svelte-kit/output/server/chunks/__layout-6c81d282.js"() {
+var SEO, MenuLine, PageTrans, css, load, _layout;
+var init_layout_d9187a65 = __esm({
+  ".svelte-kit/output/server/chunks/__layout-d9187a65.js"() {
     init_shims();
-    init_app_1d072efd();
+    init_app_9413a6c6();
+    init_store_e3e0d8aa();
+    SEO = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let $seo, $$unsubscribe_seo;
+      $$unsubscribe_seo = subscribe(seo, (value) => $seo = value);
+      $$unsubscribe_seo();
+      return `${$$result.head += `${$$result.title = `<title>${escape($seo.title)}</title>`, ""}<meta charset="${"utf-8"}" data-svelte="svelte-p4beys"><meta name="${"description"}"${add_attribute("content", $seo.description, 0)} data-svelte="svelte-p4beys"><meta name="${"\u201Drobots\u201D"}" content="${"index, follow"}" data-svelte="svelte-p4beys"><meta name="${"viewport"}" content="${"width=device-width, initial-scale=1.0"}" data-svelte="svelte-p4beys">`, ""}`;
+    });
     MenuLine = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let $$restProps = compute_rest_props($$props, ["size", "color", "class"]);
       let { size = "1em" } = $$props;
@@ -4763,7 +4825,7 @@ var init_layout_6c81d282 = __esm({
         "/table-bleu": 2
       };
       console.log("cleanedPath", key, cleanedPath);
-      const imgPaths = ["popibleu.png", "popijaune.png", "popivert.png", "popirouge.png"];
+      const imgPaths = ["popibleu.webp", "popijaune.webp", "popivert.webp", "popirouge.webp"];
       if ($$props.key === void 0 && $$bindings.key && key !== void 0)
         $$bindings.key(key);
       if ($$props.page === void 0 && $$bindings.page && page !== void 0)
@@ -4776,12 +4838,13 @@ var init_layout_6c81d282 = __esm({
 
 
 
-<div class="${"max-w-screen-xl m-auto relative"}"><div class="${"flex fixed w svelte-7oco8v"}"><nav class="${"w bg-white p-6 relative svelte-7oco8v"}"><button class="${"flex items-center px-3 py-2 absolute right-0"}">${validate_component(MenuLine, "MenuIcon").$$render($$result, {
+${validate_component(SEO, "SEO").$$render($$result, {}, {}, {})}
+<div class="${"max-w-screen-xl m-auto relative"}"><div class="${"flex fixed w svelte-7oco8v"}"><nav class="${"w bg-white p-6 relative svelte-7oco8v"}"><button aria-label="${"nav"}" class="${"flex items-center px-3 py-2 absolute right-0"}">${validate_component(MenuLine, "MenuIcon").$$render($$result, {
         class: "transition-all",
         style: "transform: rotate(" + 0 + "deg)",
         size: "40px"
       }, {}, {})}</button>
-			<div class="${"flex items-center mr-6 "}"><a href="${"/"}"><img style="${"height: 50px"}"${add_attribute("src", imgPaths[i], 0)} height="${"20"}"></a></div>
+			<div class="${"flex items-center mr-6 "}"><a href="${"/"}"><img style="${"height: 50px"}"${add_attribute("src", imgPaths[i], 0)} height="${"20"}" alt="${"logo"}"></a></div>
 			${``}</nav></div>
 	<main class="${"sm:px-3 "}" style="${"padding-top:104px"}">${validate_component(PageTrans, "PageTransition").$$render($$result, { refresh: key }, {}, {
         default: () => `${slots.default ? slots.default({}) : ``}`
@@ -4791,9 +4854,9 @@ var init_layout_6c81d282 = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/error-c81223ce.js
-var error_c81223ce_exports = {};
-__export(error_c81223ce_exports, {
+// .svelte-kit/output/server/chunks/error-79d1c487.js
+var error_79d1c487_exports = {};
+__export(error_79d1c487_exports, {
   default: () => Error2,
   load: () => load2
 });
@@ -4801,10 +4864,10 @@ function load2({ error: error2, status }) {
   return { props: { error: error2, status } };
 }
 var Error2;
-var init_error_c81223ce = __esm({
-  ".svelte-kit/output/server/chunks/error-c81223ce.js"() {
+var init_error_79d1c487 = __esm({
+  ".svelte-kit/output/server/chunks/error-79d1c487.js"() {
     init_shims();
-    init_app_1d072efd();
+    init_app_9413a6c6();
     Error2 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let { status } = $$props;
       let { error: error2 } = $$props;
@@ -4824,72 +4887,17 @@ ${error2.stack ? `<pre>${escape(error2.stack)}</pre>` : ``}`;
   }
 });
 
-// .svelte-kit/output/server/chunks/store-8efee718.js
-function writable(value, start = noop) {
-  let stop;
-  const subscribers = new Set();
-  function set(new_value) {
-    if (safe_not_equal(value, new_value)) {
-      value = new_value;
-      if (stop) {
-        const run_queue = !subscriber_queue.length;
-        for (const subscriber of subscribers) {
-          subscriber[1]();
-          subscriber_queue.push(subscriber, value);
-        }
-        if (run_queue) {
-          for (let i = 0; i < subscriber_queue.length; i += 2) {
-            subscriber_queue[i][0](subscriber_queue[i + 1]);
-          }
-          subscriber_queue.length = 0;
-        }
-      }
-    }
-  }
-  function update(fn) {
-    set(fn(value));
-  }
-  function subscribe2(run2, invalidate = noop) {
-    const subscriber = [run2, invalidate];
-    subscribers.add(subscriber);
-    if (subscribers.size === 1) {
-      stop = start(set) || noop;
-    }
-    run2(value);
-    return () => {
-      subscribers.delete(subscriber);
-      if (subscribers.size === 0) {
-        stop();
-        stop = null;
-      }
-    };
-  }
-  return { set, update, subscribe: subscribe2 };
-}
-var subscriber_queue, seo;
-var init_store_8efee718 = __esm({
-  ".svelte-kit/output/server/chunks/store-8efee718.js"() {
-    init_shims();
-    init_app_1d072efd();
-    subscriber_queue = [];
-    seo = writable({
-      title: "Atelier Popi",
-      description: "This is a description of my website"
-    });
-  }
-});
-
-// .svelte-kit/output/server/chunks/index-95188c9e.js
-var index_95188c9e_exports = {};
-__export(index_95188c9e_exports, {
+// .svelte-kit/output/server/chunks/index-c8a5ed32.js
+var index_c8a5ed32_exports = {};
+__export(index_c8a5ed32_exports, {
   default: () => Routes
 });
 var css2, Routes;
-var init_index_95188c9e = __esm({
-  ".svelte-kit/output/server/chunks/index-95188c9e.js"() {
+var init_index_c8a5ed32 = __esm({
+  ".svelte-kit/output/server/chunks/index-c8a5ed32.js"() {
     init_shims();
-    init_app_1d072efd();
-    init_store_8efee718();
+    init_app_9413a6c6();
+    init_store_e3e0d8aa();
     css2 = {
       code: ".creationsk.svelte-1wbei18{min-width:50%}.collab.svelte-1wbei18{min-width:50%}.collab-text.svelte-1wbei18{font-size:4rem}.creations-text.svelte-1wbei18{font-size:4rem}",
       map: null
@@ -4898,97 +4906,31 @@ var init_index_95188c9e = __esm({
       let $seo, $$unsubscribe_seo;
       $$unsubscribe_seo = subscribe(seo, (value) => $seo = value);
       set_store_value(seo, $seo = {
-        title: "Accueil",
+        title: "Atelier Popi - Accueil",
         description: "Popi Creations Meuble unique Design Furniture Atelier"
       }, $seo);
       $$result.css.add(css2);
       $$unsubscribe_seo();
-      return `<div class="${"md:flex"}"><a class="${"creationsk svelte-1wbei18"}" href="${"/creations"}"><div class="${"flex items-center justify-center"}"><div class="${"creations-text absolute m-auto text-white font-sans uppercase svelte-1wbei18"}">cr\xE9ation</div>
-			<img style="${""}" src="${"creations.png"}"></div></a>
+      return `<div class="${"md:flex"}"><a class="${"creationsk svelte-1wbei18"}" href="${"/creations"}"><div class="${"flex items-center justify-center"}"><div class="${"creations-text absolute m-auto text-white font-sans uppercase svelte-1wbei18"}">CR\xC9ATION</div>
+			<img style="${""}" src="${"creations.webp"}" alt="${"creations"}"></div></a>
 	<a class="${"collab svelte-1wbei18"}" href="${"/collab"}"><div class="${"flex items-center justify-center h-full"}"><div class="${"collab-text absolute m-auto font-sans uppercase svelte-1wbei18"}">Collab</div>
-			<img style="${"max-height:300px"}" src="${"slash.png"}"></div></a>
+			<img height="${"350"}" width="${"350"}" style="${""}" src="${"slash.webp"}" alt="${"slash"}"></div></a>
 </div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/ArrowRightFill-e1eb01e6.js
-var ArrowRightFill;
-var init_ArrowRightFill_e1eb01e6 = __esm({
-  ".svelte-kit/output/server/chunks/ArrowRightFill-e1eb01e6.js"() {
-    init_shims();
-    init_app_1d072efd();
-    ArrowRightFill = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      let $$restProps = compute_rest_props($$props, ["size", "color", "class"]);
-      let { size = "1em" } = $$props;
-      let { color = "currentColor" } = $$props;
-      let { class: customClass = "" } = $$props;
-      if ($$props.size === void 0 && $$bindings.size && size !== void 0)
-        $$bindings.size(size);
-      if ($$props.color === void 0 && $$bindings.color && color !== void 0)
-        $$bindings.color(color);
-      if ($$props.class === void 0 && $$bindings.class && customClass !== void 0)
-        $$bindings.class(customClass);
-      return `<svg${spread([
-        { xmlns: "http://www.w3.org/2000/svg" },
-        { viewBox: "0 0 24 24" },
-        { width: escape_attribute_value(size) },
-        { height: escape_attribute_value(size) },
-        { fill: escape_attribute_value(color) },
-        {
-          class: "remixicon " + escape(customClass)
-        },
-        escape_object($$restProps)
-      ])}><path fill="${"none"}" d="${"M0 0h24v24H0z"}"></path><path d="${"M12 13H4v-2h8V4l8 8-8 8z"}"></path></svg>`;
-    });
-  }
-});
-
-// .svelte-kit/output/server/chunks/ArrowLeftFill-95f8c805.js
-var ArrowLeftFill;
-var init_ArrowLeftFill_95f8c805 = __esm({
-  ".svelte-kit/output/server/chunks/ArrowLeftFill-95f8c805.js"() {
-    init_shims();
-    init_app_1d072efd();
-    ArrowLeftFill = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      let $$restProps = compute_rest_props($$props, ["size", "color", "class"]);
-      let { size = "1em" } = $$props;
-      let { color = "currentColor" } = $$props;
-      let { class: customClass = "" } = $$props;
-      if ($$props.size === void 0 && $$bindings.size && size !== void 0)
-        $$bindings.size(size);
-      if ($$props.color === void 0 && $$bindings.color && color !== void 0)
-        $$bindings.color(color);
-      if ($$props.class === void 0 && $$bindings.class && customClass !== void 0)
-        $$bindings.class(customClass);
-      return `<svg${spread([
-        { xmlns: "http://www.w3.org/2000/svg" },
-        { viewBox: "0 0 24 24" },
-        { width: escape_attribute_value(size) },
-        { height: escape_attribute_value(size) },
-        { fill: escape_attribute_value(color) },
-        {
-          class: "remixicon " + escape(customClass)
-        },
-        escape_object($$restProps)
-      ])}><path fill="${"none"}" d="${"M0 0h24v24H0z"}"></path><path d="${"M12 13v7l-8-8 8-8v7h8v2z"}"></path></svg>`;
-    });
-  }
-});
-
-// .svelte-kit/output/server/chunks/meuble-entree-b8a973a7.js
-var meuble_entree_b8a973a7_exports = {};
-__export(meuble_entree_b8a973a7_exports, {
+// .svelte-kit/output/server/chunks/meuble-entree-7dea5182.js
+var meuble_entree_7dea5182_exports = {};
+__export(meuble_entree_7dea5182_exports, {
   default: () => Meuble_entree
 });
 var css3, Meuble_entree;
-var init_meuble_entree_b8a973a7 = __esm({
-  ".svelte-kit/output/server/chunks/meuble-entree-b8a973a7.js"() {
+var init_meuble_entree_7dea5182 = __esm({
+  ".svelte-kit/output/server/chunks/meuble-entree-7dea5182.js"() {
     init_shims();
-    init_app_1d072efd();
-    init_ArrowRightFill_e1eb01e6();
-    init_ArrowLeftFill_95f8c805();
-    init_store_8efee718();
+    init_app_9413a6c6();
+    init_store_e3e0d8aa();
     css3 = {
       code: "h1.svelte-4kbf2d{color:#f9b256}",
       map: null
@@ -5005,30 +4947,28 @@ var init_meuble_entree_b8a973a7 = __esm({
       return `<div class="${"flex flex-col "}"><div class="${"m-auto max-w-prose flex flex-col items-center p-3"}"><h1 class="${"text-3xl uppercase text-center mb-3 svelte-4kbf2d"}">Console entr\xE9e</h1>
 		<div>Sapin - Peuplier 86 x 86 x 12</div>
 		<p class="${"text-gray-500"}">vendu</p>
-		<img class="${""}" src="${"entree-face.webp"}">
-		<img src="${"entree-haut.webp"}">
-		<img class="${"mt-16"}" style="${""}" src="${"entree-cote.webp"}">
-		<img class="${"mt-16 mb-6"}" src="${"entree-diag.webp"}">
-		<div class="${"flex w-full justify-center items-center "}"><a class="${"/table-2"}" href="${"/banc"}">${validate_component(ArrowLeftFill, "ArrowLeftIcon").$$render($$result, { size: "30" }, {}, {})}</a>
-			<a class="${"ml-auto"}" href="${"/buffet"}">${validate_component(ArrowRightFill, "ArrowRightIcon").$$render($$result, { size: "30" }, {}, {})}</a></div></div>
+		<img class="${""}" src="${"entree-face.webp"}" alt="${"entree-face"}">
+		<img src="${"entree-haut.webp"}" alt="${"entree-haut"}">
+		<img class="${"mt-16"}" style="${""}" src="${"entree-cote.webp"}" alt="${"entree-cote"}">
+		<img class="${"mt-16 mb-6"}" src="${"entree-diag.webp"}" alt="${"entree-diag"}">
+		<div class="${"flex w-full justify-center items-center "}"><a class="${"/table-1"}" href="${"/banc"}"><img height="${"40"}" width="${"40"}" src="${"arrow-left.webp"}" alt="${"arrow left"}"></a>
+			<a class="${"ml-auto"}" href="${"/buffet"}"><img height="${"40"}" width="${"40"}" src="${"arrow-right.webp"}" alt="${"arrow right"}"></a></div></div>
 </div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/table-bleu-951c4420.js
-var table_bleu_951c4420_exports = {};
-__export(table_bleu_951c4420_exports, {
+// .svelte-kit/output/server/chunks/table-bleu-a06a9574.js
+var table_bleu_a06a9574_exports = {};
+__export(table_bleu_a06a9574_exports, {
   default: () => Table_bleu
 });
 var css4, Table_bleu;
-var init_table_bleu_951c4420 = __esm({
-  ".svelte-kit/output/server/chunks/table-bleu-951c4420.js"() {
+var init_table_bleu_a06a9574 = __esm({
+  ".svelte-kit/output/server/chunks/table-bleu-a06a9574.js"() {
     init_shims();
-    init_app_1d072efd();
-    init_ArrowRightFill_e1eb01e6();
-    init_ArrowLeftFill_95f8c805();
-    init_store_8efee718();
+    init_app_9413a6c6();
+    init_store_e3e0d8aa();
     css4 = {
       code: "h1.svelte-1jv3vde{color:gold}",
       map: null
@@ -5046,27 +4986,27 @@ var init_table_bleu_951c4420 = __esm({
 		<div>H\xEAtre - Multiplex - Alupanel - Verre arm\xE9</div>
 		<div>40 x 100 x 35,5</div>
 		<p class="${"text-gray-500"}">vendu</p>
-		<img class="${"mt-32 mb-28"}" style="${""}" src="${"tableuface.png"}">
-		<img class="${"mb-12"}" src="${"tableu.png"}">
-		<img class="${""}" src="${"table-bleu-angle.png"}">
-		<div class="${"flex w-full justify-center items-center"}"><a class="${"/table-2"}" href="${"/commode"}">${validate_component(ArrowLeftFill, "ArrowLeftIcon").$$render($$result, { size: "30" }, {}, {})}</a>
-			<a class="${"ml-auto"}" href="${"/banc"}">${validate_component(ArrowRightFill, "ArrowRightIcon").$$render($$result, { size: "30" }, {}, {})}</a></div></div>
+		<img class="${"mt-32 mb-28"}" style="${""}" src="${"tableuface.png"}" alt="${"tableuface"}">
+		<img class="${"mb-12"}" src="${"tableu.png"}" alt="${"tableu"}">
+		<img class="${""}" src="${"table-bleu-angle.png"}" alt="${"table-bleu-angle"}">
+		<div class="${"flex w-full justify-center items-center"}"><a class="${"/table-2"}" href="${"/commode"}"><img height="${"40"}" width="${"40"}" src="${"arrow-left.webp"}" alt="${"arrow left"}"></a>
+			<a class="${"ml-auto"}" href="${"/banc"}"><img height="${"40"}" width="${"40"}" src="${"arrow-right.webp"}" alt="${"arrow-right"}"></a></div></div>
 </div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/creations-a9c8c689.js
-var creations_a9c8c689_exports = {};
-__export(creations_a9c8c689_exports, {
+// .svelte-kit/output/server/chunks/creations-c0a106b9.js
+var creations_c0a106b9_exports = {};
+__export(creations_c0a106b9_exports, {
   default: () => Creations
 });
 var css5, Creations;
-var init_creations_a9c8c689 = __esm({
-  ".svelte-kit/output/server/chunks/creations-a9c8c689.js"() {
+var init_creations_c0a106b9 = __esm({
+  ".svelte-kit/output/server/chunks/creations-c0a106b9.js"() {
     init_shims();
-    init_app_1d072efd();
-    init_store_8efee718();
+    init_app_9413a6c6();
+    init_store_e3e0d8aa();
     css5 = {
       code: "#first.svelte-g1o3p5{@apply flex;;@apply justify-center;;background-color:dodgerblue}#sec.svelte-g1o3p5{@apply bg-center;;@apply flex;;@apply justify-center;;background-repeat:no-repeat;background-color:tomato}#third.svelte-g1o3p5{@apply bg-center;;@apply flex;;@apply justify-center;;background-repeat:no-repeat;background-color:yellow}#fourth.svelte-g1o3p5{@apply bg-center;;@apply flex;;@apply justify-center;;background-size:100% auto;background-repeat:no-repeat;background-color:lightskyblue}#fifth.svelte-g1o3p5{@apply bg-center;;@apply flex;;@apply justify-center;;background-repeat:no-repeat;background-color:#5cac92}#sixth.svelte-g1o3p5{@apply bg-center;;@apply flex;;@apply justify-center;;background-repeat:no-repeat;background-color:#f9b256}#seventh.svelte-g1o3p5{@apply bg-center;;@apply flex;;@apply justify-center;;background-repeat:no-repeat;background-color:#f82f4e}",
       map: null
@@ -5080,31 +5020,29 @@ var init_creations_a9c8c689 = __esm({
       }, $seo);
       $$result.css.add(css5);
       $$unsubscribe_seo();
-      return `<div id="${"first"}" class="${" svelte-g1o3p5"}"><a href="${"/table-2"}"><img class="${"md:max-w-prose"}" src="${"table-2.webp"}"></a></div>
-<div id="${"sec"}" class="${" svelte-g1o3p5"}"><a href="${"/table-1"}"><img class="${"md:max-w-prose"}" src="${"table-1.webp"}"></a></div>
-<div id="${"fourth"}" class="${" svelte-g1o3p5"}"><a href="${"/commode"}"><img class="${"md:max-w-prose"}" src="${"commode.webp"}"></a></div>
-<div id="${"third"}" class="${" svelte-g1o3p5"}"><a href="${"/table-bleu"}"><img class="${"md:max-w-prose"}" src="${"table-bleu.webp"}"></a></div>
-<div id="${"fifth"}" class="${" svelte-g1o3p5"}"><a href="${"/banc"}"><img class="${"md:max-w-prose"}" src="${"banc.webp"}"></a></div>
-<div id="${"sixth"}" class="${" svelte-g1o3p5"}"><a href="${"/meuble-entree"}"><img class="${"md:max-w-prose"}" src="${"meuble entree.webp"}"></a></div>
-<div id="${"seventh"}" class="${" svelte-g1o3p5"}"><a href="${"/buffet"}"><img class="${"md:max-w-prose"}" src="${"buffet.webp"}"></a>
+      return `<div id="${"first"}" class="${" svelte-g1o3p5"}"><a href="${"/table-2"}"><img class="${"md:max-w-prose"}" src="${"table-2.webp"}" alt="${"table 2"}"></a></div>
+<div id="${"sec"}" class="${" svelte-g1o3p5"}"><a href="${"/table-1"}"><img class="${"md:max-w-prose"}" src="${"table-1.webp"}" alt="${"table 1"}"></a></div>
+<div id="${"fourth"}" class="${" svelte-g1o3p5"}"><a href="${"/commode"}"><img class="${"md:max-w-prose"}" src="${"commode.webp"}" alt="${"commode"}"></a></div>
+<div id="${"third"}" class="${" svelte-g1o3p5"}"><a href="${"/table-bleu"}"><img class="${"md:max-w-prose"}" src="${"table-bleu.webp"}" alt="${"table bleu"}"></a></div>
+<div id="${"fifth"}" class="${" svelte-g1o3p5"}"><a href="${"/banc"}"><img class="${"md:max-w-prose"}" src="${"banc.webp"}" alt="${"banc"}"></a></div>
+<div id="${"sixth"}" class="${" svelte-g1o3p5"}"><a href="${"/meuble-entree"}"><img class="${"md:max-w-prose"}" src="${"meuble entree.webp"}" alt="${"meuble entree"}"></a></div>
+<div id="${"seventh"}" class="${" svelte-g1o3p5"}"><a href="${"/buffet"}"><img class="${"md:max-w-prose"}" src="${"buffet.webp"}" alt="${"buffet"}"></a>
 </div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/commode-baf0c172.js
-var commode_baf0c172_exports = {};
-__export(commode_baf0c172_exports, {
+// .svelte-kit/output/server/chunks/commode-b44ed6a7.js
+var commode_b44ed6a7_exports = {};
+__export(commode_b44ed6a7_exports, {
   default: () => Commode
 });
 var css6, Commode;
-var init_commode_baf0c172 = __esm({
-  ".svelte-kit/output/server/chunks/commode-baf0c172.js"() {
+var init_commode_b44ed6a7 = __esm({
+  ".svelte-kit/output/server/chunks/commode-b44ed6a7.js"() {
     init_shims();
-    init_app_1d072efd();
-    init_ArrowRightFill_e1eb01e6();
-    init_ArrowLeftFill_95f8c805();
-    init_store_8efee718();
+    init_app_9413a6c6();
+    init_store_e3e0d8aa();
     css6 = {
       code: "h1.svelte-1w8o3tf{color:lightskyblue}img.svelte-1w8o3tf{@apply px-1;}",
       map: null
@@ -5122,30 +5060,30 @@ var init_commode_baf0c172 = __esm({
 		<div>Ch\xEAne - Multiplex bouleau - Laiton</div>
 		<div>91 x 100 x 33,5</div>
 		<p class="${"text-gray-500"}">vendu</p>
-		<img class="${"mb-40 mt-20 svelte-1w8o3tf"}" style="${""}" src="${"everest-face.png"}">
-		<img class="${"mb-40 svelte-1w8o3tf"}" src="${"everest-cote2.png"}">
-		<img class="${"mb-40 svelte-1w8o3tf"}" src="${"everest-detail.png"}">
-		<img class="${"mb-40 svelte-1w8o3tf"}" src="${"everest-detail2.png"}">
-		<img class="${"mb-40 svelte-1w8o3tf"}" src="${"everest-double.png"}">
-		<img class="${"mb-12 svelte-1w8o3tf"}" src="${"everest-detail3.png"}">
-		<div class="${"flex w-full justify-center items-center"}"><a class="${"/table-1"}" href="${"/table-1"}">${validate_component(ArrowLeftFill, "ArrowLeftIcon").$$render($$result, { size: "30" }, {}, {})}</a>
-			<a class="${"ml-auto"}" href="${"/table-bleu"}">${validate_component(ArrowRightFill, "ArrowRightIcon").$$render($$result, { size: "30" }, {}, {})}</a></div></div>
+		<img class="${"mb-40 mt-20 svelte-1w8o3tf"}" style="${""}" src="${"everest-face.png"}" alt="${"everest face"}">
+		<img class="${"mb-40 svelte-1w8o3tf"}" src="${"everest-cote2.png"}" alt="${"everest cote 2"}">
+		<img class="${"mb-40 svelte-1w8o3tf"}" src="${"everest-detail.png"}" alt="${"everest detail"}">
+		<img class="${"mb-40 svelte-1w8o3tf"}" src="${"everest-detail2.png"}" alt="${"everest detail 2"}">
+		<img class="${"mb-40 svelte-1w8o3tf"}" src="${"everest-double.png"}" alt="${"everest double"}">
+		<img class="${"mb-12 svelte-1w8o3tf"}" src="${"everest-detail3.png"}" alt="${"everest detail"}">
+		<div class="${"flex w-full justify-center items-center"}"><a class="${"/table-1"}" href="${"/table-1"}"><img height="${"40"}" width="${"40"}" src="${"arrow-left.webp"}" alt="${"arrow left"}" class="${"svelte-1w8o3tf"}"></a>
+			<a class="${"ml-auto"}" href="${"/table-bleu"}"><img height="${"40"}" width="${"40"}" src="${"arrow-right.webp"}" alt="${"arrow right"}" class="${"svelte-1w8o3tf"}"></a></div></div>
 </div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/contact-bcdfeb65.js
-var contact_bcdfeb65_exports = {};
-__export(contact_bcdfeb65_exports, {
+// .svelte-kit/output/server/chunks/contact-a453c47c.js
+var contact_a453c47c_exports = {};
+__export(contact_a453c47c_exports, {
   default: () => Contact
 });
 var Contact;
-var init_contact_bcdfeb65 = __esm({
-  ".svelte-kit/output/server/chunks/contact-bcdfeb65.js"() {
+var init_contact_a453c47c = __esm({
+  ".svelte-kit/output/server/chunks/contact-a453c47c.js"() {
     init_shims();
-    init_app_1d072efd();
-    init_store_8efee718();
+    init_app_9413a6c6();
+    init_store_e3e0d8aa();
     Contact = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let $seo, $$unsubscribe_seo;
       $$unsubscribe_seo = subscribe(seo, (value) => $seo = value);
@@ -5174,19 +5112,17 @@ var init_contact_bcdfeb65 = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/table-1-0d31cc29.js
-var table_1_0d31cc29_exports = {};
-__export(table_1_0d31cc29_exports, {
+// .svelte-kit/output/server/chunks/table-1-e4c0f66e.js
+var table_1_e4c0f66e_exports = {};
+__export(table_1_e4c0f66e_exports, {
   default: () => Table_1
 });
 var css7, Table_1;
-var init_table_1_0d31cc29 = __esm({
-  ".svelte-kit/output/server/chunks/table-1-0d31cc29.js"() {
+var init_table_1_e4c0f66e = __esm({
+  ".svelte-kit/output/server/chunks/table-1-e4c0f66e.js"() {
     init_shims();
-    init_app_1d072efd();
-    init_ArrowRightFill_e1eb01e6();
-    init_ArrowLeftFill_95f8c805();
-    init_store_8efee718();
+    init_app_9413a6c6();
+    init_store_e3e0d8aa();
     css7 = {
       code: "h1.svelte-1jgb7gp{color:tomato}.situation.svelte-1jgb7gp{@apply px-12;}img.svelte-1jgb7gp{@apply px-1;}",
       map: null
@@ -5205,29 +5141,28 @@ var init_table_1_0d31cc29 = __esm({
 		<div class="${"text-center"}"><p>H\xEAtre - Plexi fluo - Alupanel - Multiplex bouleau - Verre</p>
 			<p>40 x 46,5 x 36,5</p>
 			<p class="${"text-gray-500"}">260\u20AC</p></div>
-		<img class="${"mt-20 svelte-1jgb7gp"}" src="${"baby-cote.webp"}">
-		<img class="${"mb-40 mt-48 svelte-1jgb7gp"}" style="${""}" src="${"baby-face.webp"}">
-		<img class="${" svelte-1jgb7gp"}" src="${"baby-haut.webp"}">
-		<img class="${"mt-40 mb-12 situation svelte-1jgb7gp"}" src="${"baby-situation.webp"}">
-		<div class="${"flex w-full justify-center items-center mb-3 "}"><a class="${""}" href="${"/creations"}">${validate_component(ArrowLeftFill, "ArrowLeftIcon").$$render($$result, { size: "30" }, {}, {})}</a>
-			<a class="${"ml-auto"}" href="${"/commode"}">${validate_component(ArrowRightFill, "ArrowRightIcon").$$render($$result, { size: "30" }, {}, {})}</a></div></div>
+		<img class="${"mt-20 svelte-1jgb7gp"}" src="${"baby-cote.webp"}" alt="${"baby-cote"}">
+		<img class="${"mb-40 mt-48 svelte-1jgb7gp"}" style="${""}" src="${"baby-face.webp"}" alt="${"baby-face"}">
+		<img class="${" svelte-1jgb7gp"}" src="${"baby-haut.webp"}" alt="${"baby-haut"}">
+		<img class="${"mt-40 mb-12 situation svelte-1jgb7gp"}" src="${"baby-situation.webp"}" alt="${"baby-situation"}">
+		<div class="${"flex w-full justify-center items-center mb-3 "}"><a class="${"/table-1"}" href="${"/table-2"}"><img height="${"40"}" width="${"40"}" src="${"arrow-left.webp"}" alt="${"arrow left"}" class="${"svelte-1jgb7gp"}"></a>
+			<a class="${"ml-auto"}" href="${"/commode"}"><img height="${"40"}" width="${"40"}" src="${"arrow-right.webp"}" alt="${"arrow right"}" class="${"svelte-1jgb7gp"}"></a></div></div>
 </div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/table-2-13305055.js
-var table_2_13305055_exports = {};
-__export(table_2_13305055_exports, {
+// .svelte-kit/output/server/chunks/table-2-9bfbc8d2.js
+var table_2_9bfbc8d2_exports = {};
+__export(table_2_9bfbc8d2_exports, {
   default: () => Table_2
 });
 var css8, Table_2;
-var init_table_2_13305055 = __esm({
-  ".svelte-kit/output/server/chunks/table-2-13305055.js"() {
+var init_table_2_9bfbc8d2 = __esm({
+  ".svelte-kit/output/server/chunks/table-2-9bfbc8d2.js"() {
     init_shims();
-    init_app_1d072efd();
-    init_ArrowRightFill_e1eb01e6();
-    init_store_8efee718();
+    init_app_9413a6c6();
+    init_store_e3e0d8aa();
     css8 = {
       code: "h1.svelte-1gp9rxu{color:dodgerblue}img.svelte-1gp9rxu{@apply px-1;}.situation.svelte-1gp9rxu{@apply px-12;}",
       map: null
@@ -5243,54 +5178,31 @@ var init_table_2_13305055 = __esm({
       $$unsubscribe_seo();
       return `<div class="${"flex flex-col "}"><div class="${"sm:min-w-prose m-auto max-w-prose flex flex-col items-center p-3"}"><h1 class="${"mx-auto text-3xl uppercase text-center mb-3 svelte-1gp9rxu"}">Table grande soeur</h1>
 
-		<div class="${"text-center"}"><p>H\xEAtre - Plexi fluo - Alupanel -Multiplex bouleau - Verre</p>
+		<div class="${"text-center"}"><p>H\xEAtre - Plexi fluo - Alupanel - Multiplex bouleau - Verre</p>
 			<p>40 x 70,5 x 46,5</p>
 			<p class="${"text-gray-500"}">420\u20AC</p></div>
-		<img class="${"mt-20 svelte-1gp9rxu"}" src="${"grandesoeur-face.webp"}">
-		<img class="${"mb-40 mt-48 svelte-1gp9rxu"}" style="${""}" src="${"grandesoeur-face.webp"}">
-		<img class="${" svelte-1gp9rxu"}" src="${"grandesoeur-haut.webp"}">
-		<img class="${"mt-40 mb-12 situation svelte-1gp9rxu"}" src="${"grandesoeur-situation.webp"}">
-		<div class="${"flex w-full justify-center items-center mb-3 "}"><a class="${"ml-auto"}" href="${"/table-1"}">${validate_component(ArrowRightFill, "ArrowRightIcon").$$render($$result, { size: "30" }, {}, {})}</a></div></div>
+		<img class="${"mt-20 svelte-1gp9rxu"}" src="${"grandesoeur-face.webp"}" alt="${"grandesoeur-face"}">
+		<img class="${"mb-40 mt-48 svelte-1gp9rxu"}" style="${""}" src="${"grandesoeur-cote.webp"}" alt="${"grandesoeur-cote"}">
+		<img class="${" svelte-1gp9rxu"}" src="${"grandesoeur-haut.webp"}" alt="${"grandesoeur-haut"}">
+		<img class="${"mt-40 mb-12 situation svelte-1gp9rxu"}" src="${"grandesoeur-situation.webp"}" alt="${"grandesoeur-situation"}">
+		<div class="${"flex w-full justify-center items-center mb-3"}"><a class="${"/creations"}" href="${"/creations"}"><img height="${"40"}" width="${"40"}" src="${"home.webp"}" alt="${"home"}" class="${"svelte-1gp9rxu"}"></a>
+			<a class="${"ml-auto"}" href="${"/table-1"}"><img height="${"40"}" width="${"40"}" src="${"arrow-right.webp"}" alt="${"arrow right"}" class="${"svelte-1gp9rxu"}"></a></div></div>
 </div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/buffet-9b6f6d13.js
-var buffet_9b6f6d13_exports = {};
-__export(buffet_9b6f6d13_exports, {
+// .svelte-kit/output/server/chunks/buffet-dc2f671e.js
+var buffet_dc2f671e_exports = {};
+__export(buffet_dc2f671e_exports, {
   default: () => Buffet
 });
-var Home2Fill, css9, Buffet;
-var init_buffet_9b6f6d13 = __esm({
-  ".svelte-kit/output/server/chunks/buffet-9b6f6d13.js"() {
+var css9, Buffet;
+var init_buffet_dc2f671e = __esm({
+  ".svelte-kit/output/server/chunks/buffet-dc2f671e.js"() {
     init_shims();
-    init_app_1d072efd();
-    init_ArrowLeftFill_95f8c805();
-    init_store_8efee718();
-    Home2Fill = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      let $$restProps = compute_rest_props($$props, ["size", "color", "class"]);
-      let { size = "1em" } = $$props;
-      let { color = "currentColor" } = $$props;
-      let { class: customClass = "" } = $$props;
-      if ($$props.size === void 0 && $$bindings.size && size !== void 0)
-        $$bindings.size(size);
-      if ($$props.color === void 0 && $$bindings.color && color !== void 0)
-        $$bindings.color(color);
-      if ($$props.class === void 0 && $$bindings.class && customClass !== void 0)
-        $$bindings.class(customClass);
-      return `<svg${spread([
-        { xmlns: "http://www.w3.org/2000/svg" },
-        { viewBox: "0 0 24 24" },
-        { width: escape_attribute_value(size) },
-        { height: escape_attribute_value(size) },
-        { fill: escape_attribute_value(color) },
-        {
-          class: "remixicon " + escape(customClass)
-        },
-        escape_object($$restProps)
-      ])}><path fill="${"none"}" d="${"M0 0h24v24H0z"}"></path><path d="${"M20 20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9z"}"></path></svg>`;
-    });
+    init_app_9413a6c6();
+    init_store_e3e0d8aa();
     css9 = {
       code: "img.svelte-16wx4ek{@apply px-1;}h1.svelte-16wx4ek{color:#f82f4e}",
       map: null
@@ -5308,27 +5220,27 @@ var init_buffet_9b6f6d13 = __esm({
 		<div>Multiplex bouleau - Sapin</div>
 		<div>160 x 120 x 37,5</div>
 		<p class="${"text-gray-500"}">vendu</p>
-		<img class="${"mb-40 svelte-16wx4ek"}" src="${"buffet-cote.png"}">
-		<img class="${"mb-60 svelte-16wx4ek"}" src="${"buffet-grille.png"}">
-		<img class="${"mb-20 svelte-16wx4ek"}" src="${"buffet-detail.png"}">
-		<div class="${"flex w-full items-center "}"><a class="${"/table-2"}" href="${"/meuble-entree"}">${validate_component(ArrowLeftFill, "ArrowLeftIcon").$$render($$result, { size: "30" }, {}, {})}</a>
-			<a class="${"ml-auto"}" href="${"/creations"}">${validate_component(Home2Fill, "HomeIcon").$$render($$result, { size: "30" }, {}, {})}</a></div></div>
+		<img class="${"mb-40 svelte-16wx4ek"}" src="${"buffet-cote.png"}" alt="${"buffet cote"}">
+		<img class="${"mb-60 svelte-16wx4ek"}" src="${"buffet-grille.png"}" alt="${"buffet grille"}">
+		<img class="${"mb-20 svelte-16wx4ek"}" src="${"buffet-detail.png"}" alt="${"buffet detail"}">
+		<div class="${"flex w-full items-center "}"><a class="${"/table-2"}" href="${"/meuble-entree"}"><img height="${"40"}" width="${"40"}" src="${"arrow-left.webp"}" alt="${"arrow left"}" class="${"svelte-16wx4ek"}"></a>
+			<a class="${"ml-auto"}" href="${"/creations"}"><img height="${"40"}" width="${"40"}" src="${"home.webp"}" alt="${"home"}" class="${"svelte-16wx4ek"}"></a></div></div>
 </div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/collab-a7400d36.js
-var collab_a7400d36_exports = {};
-__export(collab_a7400d36_exports, {
+// .svelte-kit/output/server/chunks/collab-e5e0540b.js
+var collab_e5e0540b_exports = {};
+__export(collab_e5e0540b_exports, {
   default: () => Collab
 });
 var Collab;
-var init_collab_a7400d36 = __esm({
-  ".svelte-kit/output/server/chunks/collab-a7400d36.js"() {
+var init_collab_e5e0540b = __esm({
+  ".svelte-kit/output/server/chunks/collab-e5e0540b.js"() {
     init_shims();
-    init_app_1d072efd();
-    init_store_8efee718();
+    init_app_9413a6c6();
+    init_store_e3e0d8aa();
     Collab = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       let $seo, $$unsubscribe_seo;
       $$unsubscribe_seo = subscribe(seo, (value) => $seo = value);
@@ -5347,19 +5259,17 @@ var init_collab_a7400d36 = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/banc-e2c1e6df.js
-var banc_e2c1e6df_exports = {};
-__export(banc_e2c1e6df_exports, {
+// .svelte-kit/output/server/chunks/banc-0da593a0.js
+var banc_0da593a0_exports = {};
+__export(banc_0da593a0_exports, {
   default: () => Banc
 });
 var css10, Banc;
-var init_banc_e2c1e6df = __esm({
-  ".svelte-kit/output/server/chunks/banc-e2c1e6df.js"() {
+var init_banc_0da593a0 = __esm({
+  ".svelte-kit/output/server/chunks/banc-0da593a0.js"() {
     init_shims();
-    init_app_1d072efd();
-    init_ArrowRightFill_e1eb01e6();
-    init_ArrowLeftFill_95f8c805();
-    init_store_8efee718();
+    init_app_9413a6c6();
+    init_store_e3e0d8aa();
     css10 = {
       code: "h1.svelte-11fqoxy{color:#5cac92}",
       map: null
@@ -5376,19 +5286,19 @@ var init_banc_e2c1e6df = __esm({
       return `<div class="${"flex flex-col "}"><div class="${"m-auto max-w-prose flex flex-col items-center p-3"}"><h1 class="${"text-3xl uppercase text-center mb-3 svelte-11fqoxy"}">Banc CHAUSSETTE DE SPORT</h1>
 		<p>Sapin 32 x 78,5 x 16,5</p>
 		<p class="${"text-gray-500"}">100\u20AC</p>
-		<img class="${"mb-52 mt-28"}" style="${""}" src="${"banc-face.png"}">
-		<img class="${"mb-52"}" src="${"banc-haut.png"}">
-		<img class="${"mb-40"}" width="${"400"}" src="${"banc-detail.png"}">
-		<img class="${"mb-32 mt-32 px-12"}" src="${"banc-situation.webp"}">
-		<img class="${"mb-12 px-12"}" src="${"banc-situation2.webp"}">
-		<div class="${"flex w-full justify-center items-center "}"><a class="${"/table-2"}" href="${"/table-bleu"}">${validate_component(ArrowLeftFill, "ArrowLeftIcon").$$render($$result, { size: "30" }, {}, {})}</a>
-			<a class="${"ml-auto"}" href="${"/meuble-entree"}">${validate_component(ArrowRightFill, "ArrowRightIcon").$$render($$result, { size: "30" }, {}, {})}</a></div></div>
+		<img class="${"mb-52 mt-28"}" style="${""}" src="${"banc-face.png"}" alt="${"banc face"}">
+		<img class="${"mb-52"}" src="${"banc-haut.png"}" alt="${"banc haut"}">
+		<img class="${"mb-40"}" width="${"400"}" src="${"banc-detail.png"}" alt="${"banc detail"}">
+		<img class="${"mb-32 mt-32 px-12"}" src="${"banc-situation.webp"}" alt="${"banc situation"}">
+		<img class="${"mb-12 px-12"}" src="${"banc-situation2.webp"}" alt="${"banc situation 2"}">
+		<div class="${"flex w-full justify-center items-center "}"><a class="${"/table-2"}" href="${"/table-bleu"}"><img height="${"40"}" width="${"40"}" src="${"arrow-left.webp"}" alt="${"arrow left"}"></a>
+			<a class="${"ml-auto"}" href="${"/meuble-entree"}"><img height="${"40"}" width="${"40"}" src="${"arrow-right.webp"}" alt="${"arrow right"}"></a></div></div>
 </div>`;
     });
   }
 });
 
-// .svelte-kit/output/server/chunks/app-1d072efd.js
+// .svelte-kit/output/server/chunks/app-9413a6c6.js
 function get_single_valued_header(headers, key) {
   const value = headers[key];
   if (Array.isArray(value)) {
@@ -6718,9 +6628,9 @@ function init(settings = default_settings) {
     amp: false,
     dev: false,
     entry: {
-      file: assets + "/_app/start-5d764bce.js",
+      file: assets + "/_app/start-f3921fc0.js",
       css: [assets + "/_app/assets/start-d5b4de3e.css"],
-      js: [assets + "/_app/start-5d764bce.js", assets + "/_app/chunks/vendor-dd8279ef.js"]
+      js: [assets + "/_app/start-f3921fc0.js", assets + "/_app/chunks/vendor-f4917d21.js"]
     },
     fetched: void 0,
     floc: false,
@@ -6764,8 +6674,8 @@ function render(request, {
   return respond({ ...request, host }, options, { prerender });
 }
 var __accessCheck, __privateGet, __privateAdd, __privateSet, _map, chars, unsafeChars, reserved, escaped$1, objectProtoOwnPropertyNames, subscriber_queue2, escape_json_string_in_html_dict, escape_html_attr_dict, s$1, s, absolute, ReadOnlyFormData, current_component, boolean_attributes, invalid_attribute_name_character, escaped, missing_component, on_destroy, css11, Root, base, assets, user_hooks, template, options, default_settings, empty, manifest, get_hooks, module_lookup, metadata_lookup;
-var init_app_1d072efd = __esm({
-  ".svelte-kit/output/server/chunks/app-1d072efd.js"() {
+var init_app_9413a6c6 = __esm({
+  ".svelte-kit/output/server/chunks/app-9413a6c6.js"() {
     init_shims();
     __accessCheck = (obj, member, msg) => {
       if (!member.has(obj))
@@ -6959,7 +6869,7 @@ ${``}`;
     default_settings = { paths: { "base": "", "assets": "" } };
     empty = () => ({});
     manifest = {
-      assets: [{ "file": ".DS_Store", "size": 8196, "type": null }, { "file": "baby-cote.png", "size": 445505, "type": "image/png" }, { "file": "baby-cote.webp", "size": 33362, "type": "image/webp" }, { "file": "baby-face.png", "size": 285488, "type": "image/png" }, { "file": "baby-face.webp", "size": 18562, "type": "image/webp" }, { "file": "baby-haut.png", "size": 255050, "type": "image/png" }, { "file": "baby-haut.webp", "size": 9548, "type": "image/webp" }, { "file": "baby-situation.jpeg", "size": 271449, "type": "image/jpeg" }, { "file": "baby-situation.webp", "size": 143646, "type": "image/webp" }, { "file": "banc-detail.png", "size": 130364, "type": "image/png" }, { "file": "banc-face.png", "size": 300412, "type": "image/png" }, { "file": "banc-haut.png", "size": 485498, "type": "image/png" }, { "file": "banc-pied.png", "size": 47763, "type": "image/png" }, { "file": "banc-situation.jpeg", "size": 188049, "type": "image/jpeg" }, { "file": "banc-situation.webp", "size": 77336, "type": "image/webp" }, { "file": "banc-situation2.webp", "size": 39642, "type": "image/webp" }, { "file": "banc.png", "size": 3209645, "type": "image/png" }, { "file": "banc.webp", "size": 120620, "type": "image/webp" }, { "file": "buffet-cote.png", "size": 668931, "type": "image/png" }, { "file": "buffet-detail.png", "size": 616940, "type": "image/png" }, { "file": "buffet-face.png", "size": 900448, "type": "image/png" }, { "file": "buffet-grille.png", "size": 1300463, "type": "image/png" }, { "file": "buffet.jpeg", "size": 139086, "type": "image/jpeg" }, { "file": "buffet.png", "size": 1594607, "type": "image/png" }, { "file": "buffet.webp", "size": 133162, "type": "image/webp" }, { "file": "commode.jpeg", "size": 279735, "type": "image/jpeg" }, { "file": "commode.png", "size": 3660452, "type": "image/png" }, { "file": "commode.webp", "size": 237734, "type": "image/webp" }, { "file": "creations.png", "size": 935406, "type": "image/png" }, { "file": "entree-cote.png", "size": 8882854, "type": "image/png" }, { "file": "entree-cote.webp", "size": 250400, "type": "image/webp" }, { "file": "entree-diag.png", "size": 10262723, "type": "image/png" }, { "file": "entree-diag.webp", "size": 249680, "type": "image/webp" }, { "file": "entree-face.png", "size": 6264936, "type": "image/png" }, { "file": "entree-face.webp", "size": 148764, "type": "image/webp" }, { "file": "entree-haut.png", "size": 6568377, "type": "image/png" }, { "file": "entree-haut.webp", "size": 177354, "type": "image/webp" }, { "file": "everest-2.jpeg", "size": 178082, "type": "image/jpeg" }, { "file": "everest-cote2.png", "size": 355847, "type": "image/png" }, { "file": "everest-detail.png", "size": 429811, "type": "image/png" }, { "file": "everest-detail2.png", "size": 353942, "type": "image/png" }, { "file": "everest-detail3.png", "size": 233756, "type": "image/png" }, { "file": "everest-double.png", "size": 192187, "type": "image/png" }, { "file": "everest-face.png", "size": 246458, "type": "image/png" }, { "file": "everest.jpeg", "size": 105155, "type": "image/jpeg" }, { "file": "ex site.png", "size": 125627, "type": "image/png" }, { "file": "favicon.png", "size": 16576, "type": "image/png" }, { "file": "grandesoeur-cote.webp", "size": 53366, "type": "image/webp" }, { "file": "grandesoeur-face.webp", "size": 37980, "type": "image/webp" }, { "file": "grandesoeur-haut.webp", "size": 22874, "type": "image/webp" }, { "file": "grandesoeur-situation.webp", "size": 115838, "type": "image/webp" }, { "file": "home-meuble.png", "size": 2096098, "type": "image/png" }, { "file": "meuble entree.png", "size": 3139161, "type": "image/png" }, { "file": "meuble entree.webp", "size": 243698, "type": "image/webp" }, { "file": "popibleu.png", "size": 260351, "type": "image/png" }, { "file": "popijaune.png", "size": 244574, "type": "image/png" }, { "file": "popirouge.png", "size": 221574, "type": "image/png" }, { "file": "popivert.png", "size": 253290, "type": "image/png" }, { "file": "slash.jpeg", "size": 15729, "type": "image/jpeg" }, { "file": "slash.png", "size": 59808, "type": "image/png" }, { "file": "slash.svg", "size": 18393, "type": "image/svg+xml" }, { "file": "table 1.jpeg", "size": 43829, "type": "image/jpeg" }, { "file": "table 1.png", "size": 522801, "type": "image/png" }, { "file": "table 2.png", "size": 522801, "type": "image/png" }, { "file": "table 3.png", "size": 725042, "type": "image/png" }, { "file": "table bleu angle.png", "size": 8368171, "type": "image/png" }, { "file": "table bleu.png", "size": 687437, "type": "image/png" }, { "file": "table-1.jpeg", "size": 23239, "type": "image/jpeg" }, { "file": "table-1.png", "size": 219059, "type": "image/png" }, { "file": "table-1.webp", "size": 25654, "type": "image/webp" }, { "file": "table-2.jpeg", "size": 26749, "type": "image/jpeg" }, { "file": "table-2.png", "size": 234753, "type": "image/png" }, { "file": "table-2.webp", "size": 28838, "type": "image/webp" }, { "file": "table-base.jpeg", "size": 132560, "type": "image/jpeg" }, { "file": "table-bleu-angle.png", "size": 371726, "type": "image/png" }, { "file": "table-bleu.jpeg", "size": 22670, "type": "image/jpeg" }, { "file": "table-bleu.png", "size": 214380, "type": "image/png" }, { "file": "table-bleu.webp", "size": 22134, "type": "image/webp" }, { "file": "tableu.png", "size": 424170, "type": "image/png" }, { "file": "tableuface.png", "size": 288190, "type": "image/png" }, { "file": "tableuhaut.png", "size": 13632229, "type": "image/png" }],
+      assets: [{ "file": ".DS_Store", "size": 8196, "type": null }, { "file": "arrow-left.webp", "size": 1098, "type": "image/webp" }, { "file": "arrow-right.webp", "size": 862, "type": "image/webp" }, { "file": "baby-cote.png", "size": 445505, "type": "image/png" }, { "file": "baby-cote.webp", "size": 33362, "type": "image/webp" }, { "file": "baby-face.png", "size": 285488, "type": "image/png" }, { "file": "baby-face.webp", "size": 18562, "type": "image/webp" }, { "file": "baby-haut.png", "size": 255050, "type": "image/png" }, { "file": "baby-haut.webp", "size": 9548, "type": "image/webp" }, { "file": "baby-situation.jpeg", "size": 271449, "type": "image/jpeg" }, { "file": "baby-situation.webp", "size": 143646, "type": "image/webp" }, { "file": "banc-detail.png", "size": 130364, "type": "image/png" }, { "file": "banc-face.png", "size": 300412, "type": "image/png" }, { "file": "banc-haut.png", "size": 485498, "type": "image/png" }, { "file": "banc-pied.png", "size": 47763, "type": "image/png" }, { "file": "banc-situation.jpeg", "size": 188049, "type": "image/jpeg" }, { "file": "banc-situation.webp", "size": 77336, "type": "image/webp" }, { "file": "banc-situation2.webp", "size": 39642, "type": "image/webp" }, { "file": "banc.png", "size": 3209645, "type": "image/png" }, { "file": "banc.webp", "size": 120620, "type": "image/webp" }, { "file": "buffet-cote.png", "size": 668931, "type": "image/png" }, { "file": "buffet-detail.png", "size": 616940, "type": "image/png" }, { "file": "buffet-face.png", "size": 900448, "type": "image/png" }, { "file": "buffet-grille.png", "size": 1300463, "type": "image/png" }, { "file": "buffet.jpeg", "size": 139086, "type": "image/jpeg" }, { "file": "buffet.png", "size": 1594607, "type": "image/png" }, { "file": "buffet.webp", "size": 133162, "type": "image/webp" }, { "file": "commode.jpeg", "size": 279735, "type": "image/jpeg" }, { "file": "commode.png", "size": 3660452, "type": "image/png" }, { "file": "commode.webp", "size": 237734, "type": "image/webp" }, { "file": "creation-title.webp", "size": 50592, "type": "image/webp" }, { "file": "creations.png", "size": 935406, "type": "image/png" }, { "file": "creations.webp", "size": 25300, "type": "image/webp" }, { "file": "entree-cote.png", "size": 8882854, "type": "image/png" }, { "file": "entree-cote.webp", "size": 250400, "type": "image/webp" }, { "file": "entree-diag.png", "size": 10262723, "type": "image/png" }, { "file": "entree-diag.webp", "size": 249680, "type": "image/webp" }, { "file": "entree-face.png", "size": 6264936, "type": "image/png" }, { "file": "entree-face.webp", "size": 148764, "type": "image/webp" }, { "file": "entree-haut.png", "size": 6568377, "type": "image/png" }, { "file": "entree-haut.webp", "size": 177354, "type": "image/webp" }, { "file": "everest-2.jpeg", "size": 178082, "type": "image/jpeg" }, { "file": "everest-cote2.png", "size": 355847, "type": "image/png" }, { "file": "everest-detail.png", "size": 429811, "type": "image/png" }, { "file": "everest-detail2.png", "size": 353942, "type": "image/png" }, { "file": "everest-detail3.png", "size": 233756, "type": "image/png" }, { "file": "everest-double.png", "size": 192187, "type": "image/png" }, { "file": "everest-face.png", "size": 246458, "type": "image/png" }, { "file": "everest.jpeg", "size": 105155, "type": "image/jpeg" }, { "file": "ex site.png", "size": 125627, "type": "image/png" }, { "file": "favicon.png", "size": 16576, "type": "image/png" }, { "file": "grandesoeur-cote.webp", "size": 53366, "type": "image/webp" }, { "file": "grandesoeur-face.webp", "size": 37980, "type": "image/webp" }, { "file": "grandesoeur-haut.webp", "size": 22874, "type": "image/webp" }, { "file": "grandesoeur-situation.webp", "size": 115838, "type": "image/webp" }, { "file": "home-meuble.png", "size": 2096098, "type": "image/png" }, { "file": "home.webp", "size": 2056, "type": "image/webp" }, { "file": "letter.webp", "size": 10594, "type": "image/webp" }, { "file": "meuble entree.png", "size": 3139161, "type": "image/png" }, { "file": "meuble entree.webp", "size": 243698, "type": "image/webp" }, { "file": "popibleu.png", "size": 260351, "type": "image/png" }, { "file": "popibleu.webp", "size": 22126, "type": "image/webp" }, { "file": "popijaune.png", "size": 244574, "type": "image/png" }, { "file": "popijaune.webp", "size": 18808, "type": "image/webp" }, { "file": "popirouge.png", "size": 221574, "type": "image/png" }, { "file": "popirouge.webp", "size": 19522, "type": "image/webp" }, { "file": "popivert.png", "size": 253290, "type": "image/png" }, { "file": "popivert.webp", "size": 21306, "type": "image/webp" }, { "file": "slash.jpeg", "size": 15729, "type": "image/jpeg" }, { "file": "slash.png", "size": 59808, "type": "image/png" }, { "file": "slash.svg", "size": 18393, "type": "image/svg+xml" }, { "file": "slash.webp", "size": 22808, "type": "image/webp" }, { "file": "table 1.jpeg", "size": 43829, "type": "image/jpeg" }, { "file": "table 1.png", "size": 522801, "type": "image/png" }, { "file": "table 2.png", "size": 522801, "type": "image/png" }, { "file": "table 3.png", "size": 725042, "type": "image/png" }, { "file": "table bleu angle.png", "size": 8368171, "type": "image/png" }, { "file": "table bleu.png", "size": 687437, "type": "image/png" }, { "file": "table-1.jpeg", "size": 23239, "type": "image/jpeg" }, { "file": "table-1.png", "size": 219059, "type": "image/png" }, { "file": "table-1.webp", "size": 25654, "type": "image/webp" }, { "file": "table-2.jpeg", "size": 26749, "type": "image/jpeg" }, { "file": "table-2.png", "size": 234753, "type": "image/png" }, { "file": "table-2.webp", "size": 28838, "type": "image/webp" }, { "file": "table-base.jpeg", "size": 132560, "type": "image/jpeg" }, { "file": "table-bleu-angle.png", "size": 371726, "type": "image/png" }, { "file": "table-bleu.jpeg", "size": 22670, "type": "image/jpeg" }, { "file": "table-bleu.png", "size": 214380, "type": "image/png" }, { "file": "table-bleu.webp", "size": 22134, "type": "image/webp" }, { "file": "tableu.png", "size": 424170, "type": "image/png" }, { "file": "tableuface.png", "size": 288190, "type": "image/png" }, { "file": "tableuhaut.png", "size": 13632229, "type": "image/png" }],
       layout: "src/routes/__layout.svelte",
       error: ".svelte-kit/build/components/error.svelte",
       routes: [
@@ -7049,21 +6959,21 @@ ${``}`;
       externalFetch: hooks.externalFetch || fetch
     });
     module_lookup = {
-      "src/routes/__layout.svelte": () => Promise.resolve().then(() => (init_layout_6c81d282(), layout_6c81d282_exports)),
-      ".svelte-kit/build/components/error.svelte": () => Promise.resolve().then(() => (init_error_c81223ce(), error_c81223ce_exports)),
-      "src/routes/index.svelte": () => Promise.resolve().then(() => (init_index_95188c9e(), index_95188c9e_exports)),
-      "src/routes/meuble-entree.svelte": () => Promise.resolve().then(() => (init_meuble_entree_b8a973a7(), meuble_entree_b8a973a7_exports)),
-      "src/routes/table-bleu.svelte": () => Promise.resolve().then(() => (init_table_bleu_951c4420(), table_bleu_951c4420_exports)),
-      "src/routes/creations.svelte": () => Promise.resolve().then(() => (init_creations_a9c8c689(), creations_a9c8c689_exports)),
-      "src/routes/commode.svelte": () => Promise.resolve().then(() => (init_commode_baf0c172(), commode_baf0c172_exports)),
-      "src/routes/contact.svelte": () => Promise.resolve().then(() => (init_contact_bcdfeb65(), contact_bcdfeb65_exports)),
-      "src/routes/table-1.svelte": () => Promise.resolve().then(() => (init_table_1_0d31cc29(), table_1_0d31cc29_exports)),
-      "src/routes/table-2.svelte": () => Promise.resolve().then(() => (init_table_2_13305055(), table_2_13305055_exports)),
-      "src/routes/buffet.svelte": () => Promise.resolve().then(() => (init_buffet_9b6f6d13(), buffet_9b6f6d13_exports)),
-      "src/routes/collab.svelte": () => Promise.resolve().then(() => (init_collab_a7400d36(), collab_a7400d36_exports)),
-      "src/routes/banc.svelte": () => Promise.resolve().then(() => (init_banc_e2c1e6df(), banc_e2c1e6df_exports))
+      "src/routes/__layout.svelte": () => Promise.resolve().then(() => (init_layout_d9187a65(), layout_d9187a65_exports)),
+      ".svelte-kit/build/components/error.svelte": () => Promise.resolve().then(() => (init_error_79d1c487(), error_79d1c487_exports)),
+      "src/routes/index.svelte": () => Promise.resolve().then(() => (init_index_c8a5ed32(), index_c8a5ed32_exports)),
+      "src/routes/meuble-entree.svelte": () => Promise.resolve().then(() => (init_meuble_entree_7dea5182(), meuble_entree_7dea5182_exports)),
+      "src/routes/table-bleu.svelte": () => Promise.resolve().then(() => (init_table_bleu_a06a9574(), table_bleu_a06a9574_exports)),
+      "src/routes/creations.svelte": () => Promise.resolve().then(() => (init_creations_c0a106b9(), creations_c0a106b9_exports)),
+      "src/routes/commode.svelte": () => Promise.resolve().then(() => (init_commode_b44ed6a7(), commode_b44ed6a7_exports)),
+      "src/routes/contact.svelte": () => Promise.resolve().then(() => (init_contact_a453c47c(), contact_a453c47c_exports)),
+      "src/routes/table-1.svelte": () => Promise.resolve().then(() => (init_table_1_e4c0f66e(), table_1_e4c0f66e_exports)),
+      "src/routes/table-2.svelte": () => Promise.resolve().then(() => (init_table_2_9bfbc8d2(), table_2_9bfbc8d2_exports)),
+      "src/routes/buffet.svelte": () => Promise.resolve().then(() => (init_buffet_dc2f671e(), buffet_dc2f671e_exports)),
+      "src/routes/collab.svelte": () => Promise.resolve().then(() => (init_collab_e5e0540b(), collab_e5e0540b_exports)),
+      "src/routes/banc.svelte": () => Promise.resolve().then(() => (init_banc_0da593a0(), banc_0da593a0_exports))
     };
-    metadata_lookup = { "src/routes/__layout.svelte": { "entry": "pages/__layout.svelte-19d4397d.js", "css": ["assets/pages/__layout.svelte-4a57878e.css"], "js": ["pages/__layout.svelte-19d4397d.js", "chunks/vendor-dd8279ef.js"], "styles": [] }, ".svelte-kit/build/components/error.svelte": { "entry": "error.svelte-804f5da6.js", "css": [], "js": ["error.svelte-804f5da6.js", "chunks/vendor-dd8279ef.js"], "styles": [] }, "src/routes/index.svelte": { "entry": "pages/index.svelte-00e18b00.js", "css": ["assets/pages/index.svelte-e52cc5b7.css"], "js": ["pages/index.svelte-00e18b00.js", "chunks/vendor-dd8279ef.js", "chunks/store-eaf980c1.js"], "styles": [] }, "src/routes/meuble-entree.svelte": { "entry": "pages/meuble-entree.svelte-55104a95.js", "css": ["assets/pages/meuble-entree.svelte-343f3403.css"], "js": ["pages/meuble-entree.svelte-55104a95.js", "chunks/vendor-dd8279ef.js", "chunks/store-eaf980c1.js"], "styles": [] }, "src/routes/table-bleu.svelte": { "entry": "pages/table-bleu.svelte-b325c0f7.js", "css": ["assets/pages/table-bleu.svelte-a785dd4c.css"], "js": ["pages/table-bleu.svelte-b325c0f7.js", "chunks/vendor-dd8279ef.js", "chunks/store-eaf980c1.js"], "styles": [] }, "src/routes/creations.svelte": { "entry": "pages/creations.svelte-7e9b71ca.js", "css": ["assets/pages/creations.svelte-4b1ed2d9.css"], "js": ["pages/creations.svelte-7e9b71ca.js", "chunks/vendor-dd8279ef.js", "chunks/store-eaf980c1.js"], "styles": [] }, "src/routes/commode.svelte": { "entry": "pages/commode.svelte-7615d7e7.js", "css": ["assets/pages/commode.svelte-2b920777.css"], "js": ["pages/commode.svelte-7615d7e7.js", "chunks/vendor-dd8279ef.js", "chunks/store-eaf980c1.js"], "styles": [] }, "src/routes/contact.svelte": { "entry": "pages/contact.svelte-e38a4a2e.js", "css": [], "js": ["pages/contact.svelte-e38a4a2e.js", "chunks/vendor-dd8279ef.js", "chunks/store-eaf980c1.js"], "styles": [] }, "src/routes/table-1.svelte": { "entry": "pages/table-1.svelte-3da7b62b.js", "css": ["assets/pages/table-1.svelte-5458c49d.css"], "js": ["pages/table-1.svelte-3da7b62b.js", "chunks/vendor-dd8279ef.js", "chunks/store-eaf980c1.js"], "styles": [] }, "src/routes/table-2.svelte": { "entry": "pages/table-2.svelte-fc4aa7aa.js", "css": ["assets/pages/table-2.svelte-92fcb28b.css"], "js": ["pages/table-2.svelte-fc4aa7aa.js", "chunks/vendor-dd8279ef.js", "chunks/store-eaf980c1.js"], "styles": [] }, "src/routes/buffet.svelte": { "entry": "pages/buffet.svelte-0e40776c.js", "css": ["assets/pages/buffet.svelte-04937163.css"], "js": ["pages/buffet.svelte-0e40776c.js", "chunks/vendor-dd8279ef.js", "chunks/store-eaf980c1.js"], "styles": [] }, "src/routes/collab.svelte": { "entry": "pages/collab.svelte-cf57bc73.js", "css": ["assets/banc.svelte_svelte_type_style_lang-e2d2a3b2.css"], "js": ["pages/collab.svelte-cf57bc73.js", "chunks/vendor-dd8279ef.js", "chunks/store-eaf980c1.js"], "styles": [] }, "src/routes/banc.svelte": { "entry": "pages/banc.svelte-f4c3a33d.js", "css": ["assets/banc.svelte_svelte_type_style_lang-e2d2a3b2.css"], "js": ["pages/banc.svelte-f4c3a33d.js", "chunks/vendor-dd8279ef.js", "chunks/store-eaf980c1.js"], "styles": [] } };
+    metadata_lookup = { "src/routes/__layout.svelte": { "entry": "pages/__layout.svelte-368cb850.js", "css": ["assets/pages/__layout.svelte-518a9a0b.css"], "js": ["pages/__layout.svelte-368cb850.js", "chunks/vendor-f4917d21.js", "chunks/store-e815c9d3.js"], "styles": [] }, ".svelte-kit/build/components/error.svelte": { "entry": "error.svelte-fe6b8bb6.js", "css": [], "js": ["error.svelte-fe6b8bb6.js", "chunks/vendor-f4917d21.js"], "styles": [] }, "src/routes/index.svelte": { "entry": "pages/index.svelte-3b069ed6.js", "css": ["assets/pages/index.svelte-e52cc5b7.css"], "js": ["pages/index.svelte-3b069ed6.js", "chunks/vendor-f4917d21.js", "chunks/store-e815c9d3.js"], "styles": [] }, "src/routes/meuble-entree.svelte": { "entry": "pages/meuble-entree.svelte-ced698a8.js", "css": ["assets/pages/meuble-entree.svelte-343f3403.css"], "js": ["pages/meuble-entree.svelte-ced698a8.js", "chunks/vendor-f4917d21.js", "chunks/store-e815c9d3.js"], "styles": [] }, "src/routes/table-bleu.svelte": { "entry": "pages/table-bleu.svelte-716b2c7c.js", "css": ["assets/pages/table-bleu.svelte-a785dd4c.css"], "js": ["pages/table-bleu.svelte-716b2c7c.js", "chunks/vendor-f4917d21.js", "chunks/store-e815c9d3.js"], "styles": [] }, "src/routes/creations.svelte": { "entry": "pages/creations.svelte-85170630.js", "css": ["assets/pages/creations.svelte-4b1ed2d9.css"], "js": ["pages/creations.svelte-85170630.js", "chunks/vendor-f4917d21.js", "chunks/store-e815c9d3.js"], "styles": [] }, "src/routes/commode.svelte": { "entry": "pages/commode.svelte-e55545bd.js", "css": ["assets/pages/commode.svelte-2b920777.css"], "js": ["pages/commode.svelte-e55545bd.js", "chunks/vendor-f4917d21.js", "chunks/store-e815c9d3.js"], "styles": [] }, "src/routes/contact.svelte": { "entry": "pages/contact.svelte-2445c0e6.js", "css": [], "js": ["pages/contact.svelte-2445c0e6.js", "chunks/vendor-f4917d21.js", "chunks/store-e815c9d3.js"], "styles": [] }, "src/routes/table-1.svelte": { "entry": "pages/table-1.svelte-3e11dbcf.js", "css": ["assets/pages/table-1.svelte-5458c49d.css"], "js": ["pages/table-1.svelte-3e11dbcf.js", "chunks/vendor-f4917d21.js", "chunks/store-e815c9d3.js"], "styles": [] }, "src/routes/table-2.svelte": { "entry": "pages/table-2.svelte-2cc9ac2b.js", "css": ["assets/pages/table-2.svelte-92fcb28b.css"], "js": ["pages/table-2.svelte-2cc9ac2b.js", "chunks/vendor-f4917d21.js", "chunks/store-e815c9d3.js"], "styles": [] }, "src/routes/buffet.svelte": { "entry": "pages/buffet.svelte-97428037.js", "css": ["assets/pages/buffet.svelte-04937163.css"], "js": ["pages/buffet.svelte-97428037.js", "chunks/vendor-f4917d21.js", "chunks/store-e815c9d3.js"], "styles": [] }, "src/routes/collab.svelte": { "entry": "pages/collab.svelte-ea1360ad.js", "css": ["assets/banc.svelte_svelte_type_style_lang-e2d2a3b2.css"], "js": ["pages/collab.svelte-ea1360ad.js", "chunks/vendor-f4917d21.js", "chunks/store-e815c9d3.js"], "styles": [] }, "src/routes/banc.svelte": { "entry": "pages/banc.svelte-5c467118.js", "css": ["assets/banc.svelte_svelte_type_style_lang-e2d2a3b2.css"], "js": ["pages/banc.svelte-5c467118.js", "chunks/vendor-f4917d21.js", "chunks/store-e815c9d3.js"], "styles": [] } };
   }
 });
 
@@ -7075,7 +6985,7 @@ init_shims();
 
 // .svelte-kit/output/server/app.js
 init_shims();
-init_app_1d072efd();
+init_app_9413a6c6();
 
 // .svelte-kit/netlify/entry.js
 init();

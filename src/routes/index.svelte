@@ -1,8 +1,9 @@
 <script>
 	import { seo } from '$lib/store.js';
+	import Creations from './creations.svelte';
 
 	$seo = {
-		title: 'Accueil',
+		title: 'Atelier Popi - Accueil',
 		description: 'Popi Creations Meuble unique Design Furniture Atelier'
 	};
 </script>
@@ -10,14 +11,14 @@
 <div class="md:flex">
 	<a class="creationsk" href="/creations">
 		<div class="flex items-center justify-center">
-			<div class="creations-text absolute m-auto  text-white font-sans uppercase">création</div>
-			<img style="" src="creations.png" />
+			<div class="creations-text absolute m-auto  text-white font-sans uppercase">CRÉATION</div>
+			<img style="" src="creations.webp" alt="creations" />
 		</div>
 	</a>
 	<a class="collab" href="/collab">
 		<div class="flex items-center justify-center h-full">
 			<div class="collab-text absolute m-auto font-sans uppercase">Collab</div>
-			<img style="max-height:300px" src="slash.png" />
+			<img height="350" width="350" style="" src="slash.webp" alt="slash" />
 		</div>
 	</a>
 </div>

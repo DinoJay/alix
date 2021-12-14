@@ -10,6 +10,7 @@
 
 <script>
 	import { fade, fly, slide } from 'svelte/transition';
+	import SEO from '$lib/SEO.svelte';
 
 	import { onMount } from 'svelte';
 	import '../styles/tailwind.css';
@@ -36,7 +37,7 @@
 	$: cleanedPath = key.substring(0);
 	console.log('cleanedPath', key, cleanedPath);
 
-	const imgPaths = ['popibleu.png', 'popijaune.png', 'popivert.png', 'popirouge.png'];
+	const imgPaths = ['popibleu.webp', 'popijaune.webp', 'popivert.webp', 'popirouge.webp'];
 
 	$: i = routePaths[key];
 	const autoclose = () => (open = false);
@@ -54,10 +55,15 @@
 	});
 </script>
 
+<SEO />
 <div class="max-w-screen-xl m-auto relative">
 	<div class="flex  fixed w">
 		<nav class="w bg-white  p-6 relative">
-			<button on:click={() => (open = !open)} class="flex items-center px-3 py-2 absolute right-0">
+			<button
+				aria-label="nav"
+				on:click={() => (open = !open)}
+				class="flex items-center px-3 py-2 absolute right-0"
+			>
 				<MenuIcon
 					class="transition-all"
 					style="transform: rotate({open ? '90' : 0}deg)"
@@ -66,7 +72,7 @@
 			</button>
 			<div class="flex items-center  mr-6 ">
 				<a href="/">
-					<img style="height: 50px" src={imgPaths[i]} height="20" />
+					<img style="height: 50px" src={imgPaths[i]} height="20" alt="logo" />
 				</a>
 			</div>
 			{#if open}

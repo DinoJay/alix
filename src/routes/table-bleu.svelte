@@ -17,15 +17,15 @@
 		<div>Hêtre - Multiplex - Alupanel - Verre armé</div>
 		<div>40 x 100 x 35,5</div>
 		<p class="text-gray-500">vendu</p>
-		<img class="mt-32 mb-28" style="" src="tableuface.png" />
-		<img class="mb-12" src="tableu.png" />
-		<img class="" src="table-bleu-angle.png" />
+		<img class="mt-32 mb-28" style="" src="tableuface.png" alt="tableuface" />
+		<img class="mb-12" src="tableu.png" alt="tableu" />
+		<img class="" src="table-bleu-angle.png" alt="table-bleu-angle" />
 		<div class="flex w-full justify-center items-center">
 			<a class="/table-2" href="/commode">
-				<ArrowLeftIcon size="30" />
+				<img height="40" width="40" src="arrow-left.webp" alt="arrow left" />
 			</a>
 			<a class="ml-auto" href="/banc">
-				<ArrowRightIcon size="30" />
+				<img height="40" width="40" src="arrow-right.webp" alt="arrow-right" />
 			</a>
 		</div>
 	</div>

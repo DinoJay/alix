@@ -11,37 +11,37 @@
 
 <div id="first" class="">
 	<a href="/table-2">
-		<img class="md:max-w-prose" src="table-2.webp" />
+		<img class="md:max-w-prose" src="table-2.webp" alt="table 2" />
 	</a>
 </div>
 <div id="sec" class="">
 	<a href="/table-1">
-		<img class="md:max-w-prose" src="table-1.webp" />
+		<img class="md:max-w-prose" src="table-1.webp" alt="table 1" />
 	</a>
 </div>
 <div id="fourth" class="">
 	<a href="/commode">
-		<img class="md:max-w-prose" src="commode.webp" />
+		<img class="md:max-w-prose" src="commode.webp" alt="commode" />
 	</a>
 </div>
 <div id="third" class="">
 	<a href="/table-bleu">
-		<img class="md:max-w-prose" src="table-bleu.webp" />
+		<img class="md:max-w-prose" src="table-bleu.webp" alt="table bleu" />
 	</a>
 </div>
 <div id="fifth" class="">
 	<a href="/banc">
-		<img class="md:max-w-prose" src="banc.webp" />
+		<img class="md:max-w-prose" src="banc.webp" alt="banc" />
 	</a>
 </div>
 <div id="sixth" class="">
 	<a href="/meuble-entree">
-		<img class="md:max-w-prose" src="meuble entree.webp" />
+		<img class="md:max-w-prose" src="meuble entree.webp" alt="meuble entree" />
 	</a>
 </div>
 <div id="seventh" class="">
 	<a href="/buffet">
-		<img class="md:max-w-prose" src="buffet.webp" />
+		<img class="md:max-w-prose" src="buffet.webp" alt="buffet" />
 	</a>
 </div>
 

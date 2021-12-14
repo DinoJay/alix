@@ -15,15 +15,15 @@
 		<div>Multiplex bouleau - Sapin</div>
 		<div>160 x 120 x 37,5</div>
 		<p class="text-gray-500">vendu</p>
-		<img class="mb-40" src="buffet-cote.png" />
-		<img class="mb-60" src="buffet-grille.png" />
-		<img class="mb-20" src="buffet-detail.png" />
+		<img class="mb-40" src="buffet-cote.png" alt="buffet cote" />
+		<img class="mb-60" src="buffet-grille.png" alt="buffet grille" />
+		<img class="mb-20" src="buffet-detail.png" alt="buffet detail" />
 		<div class="flex w-full items-center ">
 			<a class="/table-2" href="/meuble-entree">
-				<ArrowLeftIcon size="30" />
+				<img height="40" width="40" src="arrow-left.webp" alt="arrow left" />
 			</a>
 			<a class="ml-auto" href="/creations">
-				<HomeIcon size="30" />
+				<img height="40" width="40" src="home.webp" alt="home" />
 			</a>
 		</div>
 	</div>

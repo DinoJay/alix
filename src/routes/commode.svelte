@@ -16,18 +16,18 @@
 		<div>Chêne - Multiplex bouleau - Laiton</div>
 		<div>91 x 100 x 33,5</div>
 		<p class="text-gray-500">vendu</p>
-		<img class="mb-40 mt-20" style="" src="everest-face.png" />
-		<img class="mb-40" src="everest-cote2.png" />
-		<img class="mb-40" src="everest-detail.png" />
-		<img class="mb-40" src="everest-detail2.png" />
-		<img class="mb-40" src="everest-double.png" />
-		<img class="mb-12" src="everest-detail3.png" />
+		<img class="mb-40 mt-20" style="" src="everest-face.png" alt="everest face" />
+		<img class="mb-40" src="everest-cote2.png" alt="everest cote 2" />
+		<img class="mb-40" src="everest-detail.png" alt="everest detail" />
+		<img class="mb-40" src="everest-detail2.png" alt="everest detail 2" />
+		<img class="mb-40" src="everest-double.png" alt="everest double" />
+		<img class="mb-12" src="everest-detail3.png" alt="everest detail" />
 		<div class="flex w-full justify-center items-center">
 			<a class="/table-1" href="/table-1">
-				<ArrowLeftIcon size="30" />
+				<img height="40" width="40" src="arrow-left.webp" alt="arrow left" />
 			</a>
 			<a class="ml-auto" href="/table-bleu">
-				<ArrowRightIcon size="30" />
+				<img height="40" width="40" src="arrow-right.webp" alt="arrow right" />
 			</a>
 		</div>
 	</div>
